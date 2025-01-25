@@ -7,12 +7,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
+    const { priceId } = req.body;
+
     try {
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
           {
-            price: 'your_actual_price_id',
+            price: priceId,
             quantity: 1,
           },
         ],
