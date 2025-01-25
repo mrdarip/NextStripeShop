@@ -77,7 +77,7 @@ ul.product-list {
 }
 
 button {
-  background-color: var(--secondary);
+  background-color: var(--accent);
   color: var(--background);
   box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 
@@ -89,7 +89,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--accent);
+  background-color: var(--secondary);
 }
 
 footer{
@@ -103,4 +103,21 @@ footer{
 
   padding: 1rem 0;
   width: 100%;
+}
+
+.cart-icon {
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 12px;
 }

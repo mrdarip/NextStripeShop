@@ -55,13 +55,16 @@ export default function Home({ products }: HomeProps) {
     setLoading(false);
   };
 
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
+
   return (
     <div id="body">
       <header>
         <h1>My Next.js Stripe App</h1>
-        <button onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer' }}>
+        <div className="cart-icon" onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer', position: 'relative' }}>
           🛒
-        </button>
+          {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
+        </div>
       </header>
       <main>
         <section className='products'>
@@ -87,15 +90,15 @@ export default function Home({ products }: HomeProps) {
       </main>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2>Cart</h2>
-        <ul id="cart-items">
+        <ul>
           {cart.map((item) => (
             <li key={item.id}>
               <article>
-          <h3>{item.name}</h3>
-          <p>
-            {item.price} {item.currency} x {item.quantity}
-          </p>
-          <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                <h3>{item.name}</h3>
+                <p>
+                  {item.price} {item.currency} x {item.quantity}
+                </p>
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </article>
             </li>
           ))}
