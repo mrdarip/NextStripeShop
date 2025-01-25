@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '../context/cartContext';
 import { loadStripe } from '@stripe/stripe-js';
@@ -9,6 +10,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 interface Product {
   id: string;
+  slug: string;
   name: string;
   description: string;
   price: number;
@@ -68,8 +70,10 @@ export default function Home({ products }: HomeProps) {
             {products.map((product) => (
               <li key={product.id}>
                 <article>
-                  <img src={product.image} alt={product.name} style={{ width: '100px', height: '100px' }} />
-                  <h3>{product.name}</h3>
+                  <Link href={`/products/${product.slug}`}>
+                    <img src={product.image} alt={product.name} style={{ width: '100px', height: '100px', cursor: 'pointer' }} />
+                    <h3>{product.name}</h3>
+                  </Link>
                   <p>{product.description}</p>
                   <p>
                     {product.price} {product.currency}
@@ -121,11 +125,12 @@ export const getStaticProps: GetStaticProps = async () => {
     const product = price.product as Stripe.Product;
     return {
       id: price.id,
+      slug: product.metadata.slug, // Use the slug from metadata
       name: product.name,
       description: product.description,
       price: price.unit_amount / 100,
       currency: price.currency.toUpperCase(),
-      image: product.images.length > 0 ? product.images[0] : '/path/to/sample-image.jpg', // Replace with your sample image path
+      image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png',
     };
   });
 
