@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useCart } from '../context/cartContext';
 import { loadStripe } from '@stripe/stripe-js';
 import Stripe from 'stripe';
+import Modal from '../components/Modal';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -21,6 +22,7 @@ interface HomeProps {
 export default function Home({ products }: HomeProps) {
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -54,6 +56,9 @@ export default function Home({ products }: HomeProps) {
     <div>
       <header>
         <h1>My Next.js Stripe App</h1>
+        <button onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer' }}>
+          🛒
+        </button>
       </header>
       <main>
         <section>
@@ -73,27 +78,27 @@ export default function Home({ products }: HomeProps) {
             ))}
           </ul>
         </section>
-        <section>
-          <h2>Cart</h2>
-          <ul>
-            {cart.map((item) => (
-              <li key={item.id}>
-                <article>
-                  <h3>{item.name}</h3>
-                  <p>
-                    {item.price} {item.currency} x {item.quantity}
-                  </p>
-                  <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                </article>
-              </li>
-            ))}
-          </ul>
-          <button onClick={clearCart}>Clear Cart</button>
-          <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
-            {loading ? 'Loading...' : 'Checkout'}
-          </button>
-        </section>
       </main>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h2>Cart</h2>
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              <article>
+                <h3>{item.name}</h3>
+                <p>
+                  {item.price} {item.currency} x {item.quantity}
+                </p>
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              </article>
+            </li>
+          ))}
+        </ul>
+        <button onClick={clearCart}>Clear Cart</button>
+        <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
+          {loading ? 'Loading...' : 'Checkout'}
+        </button>
+      </Modal>
       <footer>
         <p>&copy; 2023 My Next.js Stripe App</p>
       </footer>
