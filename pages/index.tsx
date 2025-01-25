@@ -1,7 +1,8 @@
 import { GetStaticProps } from 'next';
+import { useState } from 'react';
+import { useCart } from '../context/cartContext';
 import { loadStripe } from '@stripe/stripe-js';
 import Stripe from 'stripe';
-import { useState } from 'react';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -18,9 +19,10 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const { cart, addToCart, removeFromCart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const handleCheckout = async (priceId: string) => {
+  const handleCheckout = async () => {
     setLoading(true);
 
     const response = await fetch('/api/create-checkout-session', {
@@ -28,7 +30,7 @@ export default function Home({ products }: HomeProps) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ priceId }),
+      body: JSON.stringify({ cart }),
     });
 
     const session = await response.json();
@@ -59,12 +61,26 @@ export default function Home({ products }: HomeProps) {
             <p>
               {product.price} {product.currency}
             </p>
-            <button onClick={() => handleCheckout(product.id)} disabled={loading}>
-              {loading ? 'Loading...' : 'Buy'}
-            </button>
+            <button onClick={() => addToCart(product)}>Add to Cart</button>
           </li>
         ))}
       </ul>
+      <h2>Cart</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item.id}>
+            <h3>{item.name}</h3>
+            <p>
+              {item.price} {item.currency} x {item.quantity}
+            </p>
+            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={clearCart}>Clear Cart</button>
+      <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
+        {loading ? 'Loading...' : 'Checkout'}
+      </button>
     </div>
   );
 }
