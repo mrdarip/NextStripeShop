@@ -56,7 +56,7 @@ export default function Home({ products }: HomeProps) {
   };
 
   return (
-    <div>
+    <div id="body">
       <header>
         <h1>My Next.js Stripe App</h1>
         <button onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer' }}>
@@ -64,9 +64,9 @@ export default function Home({ products }: HomeProps) {
         </button>
       </header>
       <main>
-        <section>
+        <section className='products'>
           <h2>Products</h2>
-          <ul>
+          <ul className='product-list'>
             {products.map((product) => (
               <li key={product.id}>
                 <article>
@@ -87,15 +87,15 @@ export default function Home({ products }: HomeProps) {
       </main>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2>Cart</h2>
-        <ul>
+        <ul id="cart-items">
           {cart.map((item) => (
             <li key={item.id}>
               <article>
-                <h3>{item.name}</h3>
-                <p>
-                  {item.price} {item.currency} x {item.quantity}
-                </p>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+          <h3>{item.name}</h3>
+          <p>
+            {item.price} {item.currency} x {item.quantity}
+          </p>
+          <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </article>
             </li>
           ))}
