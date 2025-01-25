@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h3 {
+  margin: 0;
+}
+
+h5 {
+  margin: 0;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+.product img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+button {
+  background-color: #6772e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #5469d4;
+}
