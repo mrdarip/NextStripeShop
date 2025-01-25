@@ -3,9 +3,9 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">{/* TODO: change lang */}
         <Head>
-          <link rel="stylesheet" href="/styles/globals.css" />
+          {/* TODO: add meta tags, fonts, or other head elements here */}
         </Head>
         <body>
           <Main />

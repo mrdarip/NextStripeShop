@@ -52,35 +52,51 @@ export default function Home({ products }: HomeProps) {
 
   return (
     <div>
-      <h1>My Next.js Stripe App</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>
-              {product.price} {product.currency}
-            </p>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
-          </li>
-        ))}
-      </ul>
-      <h2>Cart</h2>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.id}>
-            <h3>{item.name}</h3>
-            <p>
-              {item.price} {item.currency} x {item.quantity}
-            </p>
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={clearCart}>Clear Cart</button>
-      <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
-        {loading ? 'Loading...' : 'Checkout'}
-      </button>
+      <header>
+        <h1>My Next.js Stripe App</h1>
+      </header>
+      <main>
+        <section>
+          <h2>Products</h2>
+          <ul>
+            {products.map((product) => (
+              <li key={product.id}>
+                <article>
+                  <h3>{product.name}</h3>
+                  <p>{product.description}</p>
+                  <p>
+                    {product.price} {product.currency}
+                  </p>
+                  <button onClick={() => addToCart(product)}>Add to Cart</button>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h2>Cart</h2>
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id}>
+                <article>
+                  <h3>{item.name}</h3>
+                  <p>
+                    {item.price} {item.currency} x {item.quantity}
+                  </p>
+                  <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                </article>
+              </li>
+            ))}
+          </ul>
+          <button onClick={clearCart}>Clear Cart</button>
+          <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
+            {loading ? 'Loading...' : 'Checkout'}
+          </button>
+        </section>
+      </main>
+      <footer>
+        <p>&copy; 2023 My Next.js Stripe App</p>
+      </footer>
     </div>
   );
 }
