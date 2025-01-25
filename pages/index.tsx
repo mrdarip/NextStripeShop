@@ -13,6 +13,7 @@ interface Product {
   description: string;
   price: number;
   currency: string;
+  image: string;
 }
 
 interface HomeProps {
@@ -67,6 +68,7 @@ export default function Home({ products }: HomeProps) {
             {products.map((product) => (
               <li key={product.id}>
                 <article>
+                  <img src={product.image} alt={product.name} style={{ width: '100px', height: '100px' }} />
                   <h3>{product.name}</h3>
                   <p>{product.description}</p>
                   <p>
@@ -115,13 +117,17 @@ export const getStaticProps: GetStaticProps = async () => {
     expand: ['data.product'],
   });
 
-  const products = prices.data.map((price) => ({
-    id: price.id,
-    name: (price.product as Stripe.Product).name,
-    description: (price.product as Stripe.Product).description,
-    price: price.unit_amount / 100,
-    currency: price.currency.toUpperCase(),
-  }));
+  const products = prices.data.map((price) => {
+    const product = price.product as Stripe.Product;
+    return {
+      id: price.id,
+      name: product.name,
+      description: product.description,
+      price: price.unit_amount / 100,
+      currency: price.currency.toUpperCase(),
+      image: product.images.length > 0 ? product.images[0] : '/path/to/sample-image.jpg', // Replace with your sample image path
+    };
+  });
 
   return {
     props: {
