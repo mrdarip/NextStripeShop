@@ -1,21 +1,21 @@
 {
   "name": "my-nextjs-stripe-app",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^5.5.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
     "stripe": "^8.0.0"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
-    "@types/node": "latest"
+    "@types/react": "19.0.8",
+    "typescript": "^4.0.0"
   }
 }

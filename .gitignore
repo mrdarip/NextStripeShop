@@ -27,6 +27,7 @@ build/
 
 # Environment variables
 .env
+.env.local
 
 # Next.js cache
 .next/cache

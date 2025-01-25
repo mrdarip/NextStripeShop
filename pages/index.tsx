@@ -1,20 +1,30 @@
 import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 
-const Home = () => {
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
+
+export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = async () => {
     setLoading(true);
+
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
     });
 
     const session = await response.json();
 
-    if (session.id) {
-      const stripe = await import('@stripe/stripe-js');
-      const { redirectToCheckout } = stripe;
-      await redirectToCheckout({ sessionId: session.id });
+    const stripe = await stripePromise;
+
+    if (stripe) {
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (error) {
+        console.error('Error redirecting to checkout:', error);
+      }
     }
 
     setLoading(false);
@@ -22,20 +32,10 @@ const Home = () => {
 
   return (
     <div>
-      <section>
-        <div className="product">
-          <img src="/images/stubborn-attachments.png" alt="The cover of Stubborn Attachments" />
-          <div className="description">
-            <h3>Stubborn Attachments</h3>
-            <h5>$20.00</h5>
-          </div>
-        </div>
-        <button type="button" id="checkout-button" onClick={handleCheckout} disabled={loading}>
-          {loading ? 'Loading...' : 'Checkout'}
-        </button>
-      </section>
+      <h1>My Next.js Stripe App</h1>
+      <button onClick={handleCheckout} disabled={loading}>
+        {loading ? 'Loading...' : 'Checkout'}
+      </button>
     </div>
   );
-};
-
-export default Home;
+}
