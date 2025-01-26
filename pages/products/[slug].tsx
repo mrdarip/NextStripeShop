@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         description: product.description,
         price: (price.unit_amount ?? 0) / 100,
         currency: price.currency.toUpperCase(),
-        image: product.images.length > 0 ? product.images[0] : '/path/to/sample-image.jpg', // Replace with your sample image path
+        image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png', // Replace with your sample image path
       },
     },
   };
