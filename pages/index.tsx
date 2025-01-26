@@ -81,7 +81,7 @@ export default function Home({ products }: HomeProps) {
                   <p>
                     {product.price} {product.currency}
                   </p>
-                  <button onClick={() => addToCart(product)}>Add to Cart</button>
+                  <button onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
                 </article>
               </li>
             ))}
@@ -137,9 +137,7 @@ export default function Home({ products }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2022-11-15',
-  });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const prices = await stripe.prices.list({
     expand: ['data.product'],
@@ -152,9 +150,9 @@ export const getStaticProps: GetStaticProps = async () => {
       slug: product.metadata.slug, // Use the slug from metadata
       name: product.name,
       description: product.description,
-      price: price.unit_amount / 100,
+      price: (price.unit_amount ?? 99999) / 100,
       currency: price.currency.toUpperCase(),
-      image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png',
+      image: product.images.length > 0 ? product.images[0] : '/path/to/sample-image.jpg', // Replace with your sample image path
     };
   });
 

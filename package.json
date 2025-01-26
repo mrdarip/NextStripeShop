@@ -8,11 +8,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^5.5.0",
+    "@stripe/stripe-js": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "stripe": "^8.0.0"
+    "stripe": "^17.5.0"
   },
   "devDependencies": {
     "@types/react": "19.0.8",

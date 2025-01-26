@@ -22,7 +22,7 @@ const SuccessPage = () => {
         <div>
           <p>Thank you for your purchase!</p>
           <p>Order ID: {session.id}</p>
-          <p>Amount: {session.amount_total / 100} {session.currency.toUpperCase()}</p>
+          <p>Amount: {session.amount_total?session.amount_total/ 100:"-"} {(session.currency??"¤").toUpperCase()}</p>
         </div>
       ) : (
         <p>Loading...</p>

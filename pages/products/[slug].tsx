@@ -27,9 +27,7 @@ export default function Product({ product }: ProductProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2022-11-15',
-  });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const prices = await stripe.prices.list({
     expand: ['data.product'],
@@ -49,9 +47,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2022-11-15',
-  });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+  if (!params || typeof params.slug !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
 
   const prices = await stripe.prices.list({
     expand: ['data.product'],
@@ -77,9 +79,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         slug: product.metadata.slug,
         name: product.name,
         description: product.description,
-        price: price.unit_amount / 100,
+        price: (price.unit_amount ?? 0) / 100,
         currency: price.currency.toUpperCase(),
-        image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png',
+        image: product.images.length > 0 ? product.images[0] : '/path/to/sample-image.jpg', // Replace with your sample image path
       },
     },
   };

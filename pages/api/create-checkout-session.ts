@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2022-11-15',
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -23,7 +21,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       res.status(200).json({ id: session.id });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      if (err instanceof Error) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.status(500).json({ error: 'An unknown error occurred' });
+      }
     }
   } else {
     res.setHeader('Allow', 'POST');
