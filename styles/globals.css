@@ -51,7 +51,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 
   padding: 2rem 0;
   --mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/2em 100%;
@@ -74,6 +74,12 @@ header {
 ul.product-list {
   list-style-type: none;
   padding: 0;
+}
+
+
+a {
+  color: var(--secondary);
+  text-decoration: none;
 }
 
 button {

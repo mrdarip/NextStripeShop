@@ -40,27 +40,6 @@ const Layout = ({ children }: LayoutProps) => {
       <footer>
         <p>&copy; 2023 My Next.js Stripe App</p>
       </footer>
-      <style jsx>{`
-        .cart-icon {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background: white;
-          border-radius: 50%;
-          padding: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .cart-count {
-          position: absolute;
-          top: -10px;
-          right: -10px;
-          background: red;
-          color: white;
-          border-radius: 50%;
-          padding: 5px 10px;
-          font-size: 12px;
-        }
-      `}</style>
     </div>
   );
 };
