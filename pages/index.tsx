@@ -1,8 +1,10 @@
 import { GetStaticProps } from 'next';
-import Link from 'next/link';
+import { useState } from 'react';
 import { useCart } from '../context/cartContext';
 import { loadStripe } from '@stripe/stripe-js';
 import Stripe from 'stripe';
+import ProductCard from '../components/ProductCard';
+import Modal from '../components/Modal';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -21,7 +23,39 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
-  const { addToCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCheckout = async () => {
+    setLoading(true);
+
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cart }),
+    });
+
+    const session = await response.json();
+
+    const stripe = await stripePromise;
+
+    if (stripe) {
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (error) {
+        console.error('Error redirecting to checkout:', error);
+      }
+    }
+
+    setLoading(false);
+  };
+
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
 
   return (
     <div>
@@ -29,22 +63,30 @@ export default function Home({ products }: HomeProps) {
         <h2>Products</h2>
         <ul className='product-list'>
           {products.map((product) => (
-            <li key={product.id}>
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </ul>
+      </section>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h2>Cart</h2>
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
               <article>
-                <Link href={`/products/${product.slug}`}>
-                  <img src={product.image} alt={product.name} style={{ width: '100px', height: '100px', cursor: 'pointer' }} />
-                  <h3>{product.name}</h3>
-                </Link>
-                <p>{product.description}</p>
+                <h3>{item.name}</h3>
                 <p>
-                  {product.price} {product.currency}
+                  {item.price} {item.currency} x {item.quantity}
                 </p>
-                <button onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </article>
             </li>
           ))}
         </ul>
-      </section>
+        <button onClick={clearCart}>Clear Cart</button>
+        <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
+          {loading ? 'Loading...' : 'Checkout'}
+        </button>
+      </Modal>
     </div>
   );
 }
@@ -65,7 +107,7 @@ export const getStaticProps: GetStaticProps = async () => {
       description: product.description,
       price: (price.unit_amount ?? 99999) / 100,
       currency: price.currency.toUpperCase(),
-      image: product.images.length > 0 ? product.images[0] : 'images/placeholder.png',
+      image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png',
     };
   });
 
