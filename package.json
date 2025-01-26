@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "latest",
+    "@vercel/speed-insights": "^1.1.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
