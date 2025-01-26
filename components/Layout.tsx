@@ -48,7 +48,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div id="body">
       <header>
-        <h1><Link href={"/"}>My Next.js Stripe App</Link></h1>
+        <h1><Link href={"/"}><img src='/images/logo.png' alt='logo'/>My Next.js Stripe App</Link></h1>
         <div className="cart-icon" onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer', position: 'relative' }}>
           🛒
           {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
