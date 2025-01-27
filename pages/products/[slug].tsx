@@ -1,5 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Stripe from 'stripe';
+import { useCart } from '../../context/cartContext';
+
 
 interface ProductProps {
   product: {
@@ -14,14 +16,17 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const { addToCart } = useCart();
+
   return (
     <div>
       <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} style={{ width: '200px', height: '200px' }} />
+      <img src={product.image} alt={product.name}/>
       <p>{product.description}</p>
       <p>
         {product.price} {product.currency}
       </p>
+      <button onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
     </div>
   );
 }
