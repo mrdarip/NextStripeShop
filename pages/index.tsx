@@ -23,7 +23,9 @@ export default function Home({ products }: HomeProps) {
         <h2>Products</h2>
         <ul className='product-list'>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <li key={product.id}>
+              <ProductCard product={product} />
+            </li>
           ))}
         </ul>
       </section>

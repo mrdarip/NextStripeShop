@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useCart } from '../context/cartContext';
+import styles from './ProductCard.module.css';
 
 interface Product {
   id: string;
@@ -19,19 +20,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
 
   return (
-    <li>
-      <article>
-        <Link href={`/products/${product.slug}`}>
-          <img src={product.image} alt={product.name} style={{ width: '100px', height: '100px', cursor: 'pointer' }} />
-          <h3>{product.name}</h3>
-        </Link>
-        <p>{product.description}</p>
-        <p>
-          {product.price} {product.currency}
-        </p>
-        <button onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
-      </article>
-    </li>
+    <article className={styles['product-card']}>
+      <Link href={`/products/${product.slug}`}>
+        <img src={product.image} alt={product.name} className={styles['product-card img']} />
+        <h3 className={styles['product-card h3']}>{product.name}</h3>
+      </Link>
+      <p className={styles['product-card p']}>{product.description}</p>
+      <p className={styles['product-card p']}>
+        {product.price} {product.currency}
+      </p>
+      <button className={styles['product-card button']} onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+    </article>
   );
 };
 
