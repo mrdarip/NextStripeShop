@@ -1,32 +1,44 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Stripe from 'stripe';
 import { useCart } from '../../context/cartContext';
+import Stripe from 'stripe';
+import ProductCard from '../../components/ProductCard';
 
-
-interface ProductProps {
-  product: {
-    id: string;
-    slug: string;
-    name: string;
-    description: string;
-    price: number;
-    currency: string;
-    image: string;
-  };
+interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  image: string;
 }
 
-export default function Product({ product }: ProductProps) {
+interface ProductPageProps {
+  product: Product;
+  relatedProducts: Product[];
+}
+
+export default function ProductPage({ product, relatedProducts }: ProductPageProps) {
   const { addToCart } = useCart();
 
   return (
     <div>
       <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name}/>
+      <img src={product.image} alt={product.name} style={{ width: '200px', height: '200px' }} />
       <p>{product.description}</p>
       <p>
         {product.price} {product.currency}
       </p>
-      <button onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+      <button type="button" onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+
+      <h2>Related Products</h2>
+      <ul className='product-list'>
+        {relatedProducts.map((relatedProduct) => (
+          <li key={relatedProduct.id}>
+            <ProductCard product={relatedProduct} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -54,40 +66,57 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-  if (!params || typeof params.slug !== 'string') {
-    return {
-      notFound: true,
-    };
-  }
-
   const prices = await stripe.prices.list({
     expand: ['data.product'],
   });
 
-  const price = prices.data.find((price) => {
+  const product = prices.data.find((price) => {
     const product = price.product as Stripe.Product;
-    return product.metadata.slug === params.slug;
+    return product.metadata.slug === params?.slug;
   });
 
-  if (!price) {
+  if (!product) {
     return {
       notFound: true,
     };
   }
 
-  const product = price.product as Stripe.Product;
+
+  const productProduct = product.product as Stripe.Product;
+
+  const relatedSlugs = productProduct.metadata.related?.split(',') || [];
+  const relatedProducts = prices.data
+    .filter((price) => {
+      const relatedProduct = price.product as Stripe.Product;
+      return relatedSlugs.includes(relatedProduct.metadata.slug);
+    })
+    .map((price) => {
+      const relatedProduct = price.product as Stripe.Product;
+      return {
+        id: price.id,
+        slug: relatedProduct.metadata.slug,
+        name: relatedProduct.name,
+        description: relatedProduct.description,
+        price: (price.unit_amount ?? 0) / 100,
+        currency: price.currency.toUpperCase(),
+        image: relatedProduct.images.length > 0 ? relatedProduct.images[0] : '/images/placeholder.png',
+      };
+    });
+
+  const productData = {
+    id: product.id,
+    slug: productProduct.metadata.slug,
+    name: productProduct.name,
+    description: productProduct.description,
+    price: (product.unit_amount ?? 0) / 100,
+    currency: product.currency.toUpperCase(),
+    image: productProduct.images.length > 0 ? productProduct.images[0] : '/images/placeholder.png',
+  };
 
   return {
     props: {
-      product: {
-        id: price.id,
-        slug: product.metadata.slug,
-        name: product.name,
-        description: product.description,
-        price: (price.unit_amount ?? 0) / 100,
-        currency: price.currency.toUpperCase(),
-        image: product.images.length > 0 ? product.images[0] : '/images/placeholder.png', // Replace with your sample image path
-      },
+      product: productData,
+      relatedProducts,
     },
   };
 };
