@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useCart } from '../../context/cartContext';
 import Stripe from 'stripe';
 import ProductCard from '../../components/ProductCard';
+import s from './ProductPage.module.css';
 
 interface Product {
   id: string;
@@ -22,17 +23,27 @@ export default function ProductPage({ product, relatedProducts }: ProductPagePro
   const { addToCart } = useCart();
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} style={{ width: '200px', height: '200px' }} />
-      <p>{product.description}</p>
-      <p>
-        {product.price} {product.currency}
-      </p>
-      <button type="button" onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+    <div className={s["product-page"]}>
+        <h1 className={s.title}>{product.name}</h1>
+        <img src={product.image} alt={product.name} style={{ width: '200px', height: '200px' }} className={s.img}/>
+
+      
+      <div className={s.ordering}>
+        <p>
+          {product.price} {product.currency}
+        </p>
+        <button type="button" onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
+      </div>
+
+      {product.description && (
+        <div className={s.description}>
+          <h2>Description</h2>
+          <p>{product.description}</p>
+        </div>
+      )}
 
       {relatedProducts.length > 0 && (
-        <>
+        <div className={s.recommendations}>
           <h2>Related Products</h2>
           <ul className='product-list'>
             {relatedProducts.map((relatedProduct) => (
@@ -41,7 +52,7 @@ export default function ProductPage({ product, relatedProducts }: ProductPagePro
               </li>
             ))}
           </ul>
-        </>
+        </div>
       )}
     </div>
   );
