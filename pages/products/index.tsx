@@ -26,8 +26,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
     setSearchTerm(term);
     setFilteredProducts(
       products.filter((product) =>
-        product.name.toLowerCase().includes(term) ||
-        product.description.toLowerCase().includes(term)
+        product.name.toLowerCase().includes(term) || product.description?.toLowerCase().includes(term)
       )
     );
   };
