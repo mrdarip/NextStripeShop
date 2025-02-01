@@ -124,7 +124,7 @@ footer{
   background: white;
   border-radius: 50%;
   padding: 10px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .cart-count {
   position: absolute;

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,9 +10,9 @@ interface ModalProps {
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!isOpen) return null;
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+  return ReactDOM.createPortal(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>
           &times;
         </button>
@@ -30,32 +31,28 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
           align-items: center;
         }
         .modal-content {
+          display: flex;
+          flex-direction: column;
+          max-height: 90vh;
+          overflow-y: auto;
+          gap: 20px;
           background: white;
           padding: 20px;
-          border-radius: 8px;
+          border-radius: 5px;
           position: relative;
         }
         .modal-close {
           position: absolute;
           top: 10px;
           right: 10px;
-          background: #ff0000; /* Change this to your desired background color */
-          color: white;
+          background: red;
           border: none;
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
           font-size: 24px;
           cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .modal-close:hover {
-          background: #cc0000; /* Darker shade for hover effect */
         }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 };
 
