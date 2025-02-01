@@ -31,14 +31,18 @@ export default function ProductPage({ product, relatedProducts }: ProductPagePro
       </p>
       <button type="button" onClick={() => addToCart({ ...product, quantity: 1 })}>Add to Cart</button>
 
-      <h2>Related Products</h2>
-      <ul className='product-list'>
-        {relatedProducts.map((relatedProduct) => (
-          <li key={relatedProduct.id}>
-            <ProductCard product={relatedProduct} />
-          </li>
-        ))}
-      </ul>
+      {relatedProducts.length > 0 && (
+        <>
+          <h2>Related Products</h2>
+          <ul className='product-list'>
+            {relatedProducts.map((relatedProduct) => (
+              <li key={relatedProduct.id}>
+                <ProductCard product={relatedProduct} />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
