@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
-import ReactDOM from 'react-dom';
+'use client';
+
+import { ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,10 +9,16 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (!isOpen) return null;
+export default function Modal({ isOpen, onClose, children }: ModalProps) {
+  const [mounted, setMounted] = useState(false);
 
-  return ReactDOM.createPortal(
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>
@@ -54,6 +62,4 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     </div>,
     document.body
   );
-};
-
-export default Modal;
+}
