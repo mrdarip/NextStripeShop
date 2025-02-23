@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Stripe from 'stripe';
+import { getSession } from '../../lib/stripeService';
 
 export default function SessionDetails() {
   const searchParams = useSearchParams();
@@ -11,9 +12,9 @@ export default function SessionDetails() {
 
   useEffect(() => {
     if (session_id) {
-      fetch(`/api/checkout-session?session_id=${session_id}`)
-        .then((res) => res.json())
-        .then((data) => setSession(data));
+      getSession(session_id)
+        .then((data) => setSession(data))
+        .catch((error) => console.error('Error fetching session:', error));
     }
   }, [session_id]);
 
@@ -23,7 +24,8 @@ export default function SessionDetails() {
     <div>
       <p>Thank you for your purchase!</p>
       <p>Order ID: {session.id}</p>
-      <p>Amount: {session.amount_total ? session.amount_total / 100 : "-"} {(session.currency ?? "¤").toUpperCase()}</p>
+      <p>Amount: {session.amount_total ? (session.amount_total / 100).toFixed(2) : "-"} {(session.currency ?? "¤").toUpperCase()}</p>
+      <p>Payment Status: {session.payment_status ?? "unknown"}</p>
     </div>
   );
 }
