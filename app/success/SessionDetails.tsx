@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { getSession } from '../../lib/serverActions';
 import Stripe from 'stripe';
 
 export default function SessionDetails() {
@@ -11,9 +12,9 @@ export default function SessionDetails() {
 
   useEffect(() => {
     if (session_id) {
-      fetch(`/api/checkout-session?session_id=${session_id}`)
-        .then((res) => res.json())
-        .then((data) => setSession(data));
+      getSession(session_id)
+        .then((data) => setSession(data))
+        .catch((error) => console.error('Error fetching session details:', error));
     }
   }, [session_id]);
 

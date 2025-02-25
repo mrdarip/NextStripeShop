@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useCart } from '../context/cartContext';
 import Modal from '../components/Modal';
 import { loadStripe } from '@stripe/stripe-js';
+import { createCheckoutSession } from '../../lib/serverActions';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -16,22 +17,21 @@ export default function Cart() {
 
   const handleCheckout = async () => {
     setLoading(true);
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cart }),
-    });
-    const session = await response.json();
-    const stripe = await stripePromise;
-    if (stripe) {
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      if (error) {
-        console.error('Error redirecting to checkout:', error);
+    try {
+      const sessionid = await createCheckoutSession(cart, window.location.origin);
+      const stripe = await stripePromise;
+      if (stripe && sessionid) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: sessionid,
+        });
+        if (error) {
+          console.error('Error redirecting to checkout:', error);
+        }
+      } else {
+        console.error('Stripe or session ID not available');
       }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
     }
     setLoading(false);
   };
