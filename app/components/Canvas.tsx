@@ -6,11 +6,13 @@ interface Stroke {
     x: number;
     y: number;
     isDrawing: boolean;
+    color: string;
 }
 
 const Canvas: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [strokes, setStrokes] = useState<Stroke[]>([]);
+    const [color, setColor] = useState<string>('black');
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -34,11 +36,11 @@ const Canvas: React.FC = () => {
             if (!drawing) return;
             const x = event.clientX - canvas.offsetLeft;
             const y = event.clientY - canvas.offsetTop;
-            setStrokes(prevStrokes => [...prevStrokes, { x, y, isDrawing: drawing }]);
+            setStrokes(prevStrokes => [...prevStrokes, { x, y, isDrawing: drawing, color }]);
 
             context.lineWidth = 5;
-            context.lineCap = 'round'; 
-            context.strokeStyle = 'black';
+            context.lineCap = 'round';
+            context.strokeStyle = color;
 
             context.lineTo(x, y);
             context.stroke();
@@ -64,11 +66,14 @@ const Canvas: React.FC = () => {
             canvas.removeEventListener('mouseup', endDrawing);
             canvas.removeEventListener('mousemove', draw);
         };
-    }, []);
+    }, [color]);
 
     return (
         <div>
+            <input type="color" id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)} />
+            
             <canvas ref={canvasRef} width={800} height={600} style={{ border: '1px solid black' }} />
+            
             <button onClick={() => console.log(strokes)}>Log Strokes</button>
         </div>
     );
