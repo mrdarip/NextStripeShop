@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import styles from './Canvas.module.css';
 
 interface Stroke {
     x: number;
@@ -19,6 +20,23 @@ const Canvas: React.FC = () => {
         if (!canvas) return;
         const context = canvas.getContext('2d');
         if (!context) return;
+        
+        // Set canvas dimensions for internal drawing coordinates
+        const updateCanvasSize = () => {
+            const container = canvas.parentElement;
+            if (container) {
+                // Maintain the internal pixel density of the canvas
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            }
+        };
+        
+        // Initialize canvas size
+        updateCanvasSize();
+        
+        // Update canvas size on resize
+        window.addEventListener('resize', updateCanvasSize);
 
         let drawing = false;
 
@@ -82,16 +100,27 @@ const Canvas: React.FC = () => {
             canvas.removeEventListener('touchend', endDrawing);
             canvas.removeEventListener('touchmove', draw);
             document.body.removeEventListener('touchmove', preventScroll);
+            window.removeEventListener('resize', updateCanvasSize);
         };
     }, [color]);
 
     return (
-        <div>
-            <input type="color" id="color" name="color" value={color} onChange={(e) => setColor(e.target.value)} />
+        <div className={styles.canvasWrapper}>
+            <div className={styles.controls}>
+                <input 
+                    type="color" 
+                    id="color" 
+                    name="color" 
+                    value={color} 
+                    onChange={(e) => setColor(e.target.value)}
+                    className={styles.colorPicker}
+                />
+                <button onClick={() => console.log(strokes)}>Log Strokes</button>
+            </div>
             
-            <canvas ref={canvasRef} width={800} height={600} style={{ border: '1px solid black', width:'100%', aspectRatio: '1/1' }} />
-            
-            <button onClick={() => console.log(strokes)}>Log Strokes</button>
+            <div className={styles.canvasContainer}>
+                <canvas ref={canvasRef} className={styles.canvas} />
+            </div>
         </div>
     );
 };

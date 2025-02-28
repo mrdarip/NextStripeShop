@@ -1,0 +1,65 @@
+
+
+.canvasWrapper > * {
+    /*center the canvas and color picker*/
+    margin: auto;
+}
+
+.canvas {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100vh;
+  aspect-ratio: 1 / 1;
+  display: block;
+}
+
+/* Media query for landscape orientation (width > height) */
+@media (orientation: landscape) {
+  .canvas {
+    height: calc(
+      100vh - 11em
+    ); /* Use a little less than full height to account for other UI elements */
+    width: auto;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .canvasWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+/* Media query for portrait orientation (width < height) */
+@media (orientation: portrait) {
+  .canvas {
+    width: 100%; /* Use a little less than full width to account for padding/margins */
+    height: auto;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .canvasWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+}
+
+.colorPicker {
+  margin-bottom: 1rem;
+}
+
