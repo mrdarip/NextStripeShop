@@ -20,23 +20,7 @@ const Canvas: React.FC = () => {
         if (!canvas) return;
         const context = canvas.getContext('2d');
         if (!context) return;
-        
-        // Set canvas dimensions for internal drawing coordinates
-        const updateCanvasSize = () => {
-            const container = canvas.parentElement;
-            if (container) {
-                // Maintain the internal pixel density of the canvas
-                const rect = canvas.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-            }
-        };
-        
-        // Initialize canvas size
-        updateCanvasSize();
-        
-        // Update canvas size on resize
-        window.addEventListener('resize', updateCanvasSize);
+
 
         let drawing = false;
 
@@ -100,7 +84,6 @@ const Canvas: React.FC = () => {
             canvas.removeEventListener('touchend', endDrawing);
             canvas.removeEventListener('touchmove', draw);
             document.body.removeEventListener('touchmove', preventScroll);
-            window.removeEventListener('resize', updateCanvasSize);
         };
     }, [color]);
 
@@ -119,7 +102,12 @@ const Canvas: React.FC = () => {
             </div>
             
             <div className={styles.canvasContainer}>
-                <canvas ref={canvasRef} className={styles.canvas} />
+                <canvas 
+                    ref={canvasRef} 
+                    className={styles.canvas}
+                    width={'1024'}
+                    height={'1024'}
+                    />
             </div>
         </div>
     );
