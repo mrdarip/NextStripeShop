@@ -4,7 +4,6 @@
   --background: #fbfcfe;
   --primary: #97bae2;
   --secondary: #80b6f3;
-  --accent: #3b96fe;
 }
 
 *{
@@ -34,7 +33,22 @@ body {
 
   background-color: var(--background);
   color: var(--text);
+
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, var(--primary) 32px, var(--primary) 64px);
+  background-size: 90px 90px;
+  animation: translateBG 3s linear infinite;
 }
+
+@keyframes translateBG {
+  0% {
+    background-position: 0px 0%;
+  }
+  100% {
+    background-position: 90px 0%;
+  }
+}
+
+
 
 h3 {
   margin: 0;
@@ -59,7 +73,7 @@ header {
           mask: var(--mask);
 
   background: var(--primary);
-  background: radial-gradient(at left top, var(--primary), var(--accent));
+  background: radial-gradient(at left top, var(--primary), var(--secondary));
   color: var(--background);
 }
 
@@ -92,7 +106,7 @@ h1 img{
 }
 
 button {
-  background-color: var(--accent);
+  background-color: var(--secondary);
   color: var(--background);
   box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 
