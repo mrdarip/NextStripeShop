@@ -38,7 +38,7 @@ body {
 
   background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, var(--primary) 32px, var(--primary) 64px);
   background-size: 90px 90px;
-  animation: translateBG 3s linear infinite;
+  animation: translateBG 6s linear infinite;
 }
 
 @keyframes translateBG {
