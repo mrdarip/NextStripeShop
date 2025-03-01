@@ -4,30 +4,48 @@ import { useEffect } from 'react';
 
 // Define palette configurations
 const PALETTES = {
-  blue: {
-    '--palette-primary': '#3498db',
-    '--palette-secondary': '#2980b9',
-    '--palette-accent': '#1abc9c',
-    '--palette-background': '#ecf0f1',
-    '--palette-text': '#2c3e50',
+  //palettes
+  pizzaplace: {
+    //white and red
+    '--palette-primary': 'Red',
+    '--palette-secondary': 'White',
+    '--palette-accent': 'Black',
+    '--palette-background': 'White',
+    '--palette-text': 'Black',
   },
-  green: {
-    '--palette-primary': '#2ecc71',
-    '--palette-secondary': '#27ae60',
-    '--palette-accent': '#f39c12',
-    '--palette-background': '#f0f5f0',
-    '--palette-text': '#333333',
+  "black-red-white": {
+    //black red and white
+    '--palette-primary': 'Black',
+    '--palette-secondary': 'Black',
+    '--palette-accent': 'White',
+    '--palette-background': 'Red',
+    '--palette-text': 'White',
   },
-  red: {
-    '--palette-primary': '#e74c3c',
-    '--palette-secondary': '#c0392b',
+  "clay": {
+    //pastel brownish colors
+    //beige and latte brown,
+    '--palette-primary': 'Latte Brown',
+    '--palette-secondary': 'Beige',
     '--palette-accent': '#3498db',
     '--palette-background': '#f5f0f0',
-    '--palette-text': '#2c3e50',
-  },
+    '--palette-text': '#2c3e50', 
+  }
   // Additional palettes
 };
 
+//palete hex colors
+/*
+Dark Green	#68724D
+Beige	#F7E6DE
+Lilac Purple	#AE96D4
+Ice Blue	#A3D8E1
+Marine Blue	#0078BF
+Sakura Pink	#E8AFCF
+Latte Brown	#D3B7A7	
+Red	#FF0000
+Black	#000000
+White	#FFFFFF
+*/
 export class PaletteToolClass {
   /**
    * Changes the palette by directly modifying CSS variables in :root
