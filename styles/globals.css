@@ -70,12 +70,9 @@ header {
   gap: 1.5rem;
 
   padding: 2rem 0;
-  --mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/2em 100%;
-  -webkit-mask: var(--mask);
-          mask: var(--mask);
+  
 
   background: var(--primary);
-  background: radial-gradient(at left top, var(--primary), var(--secondary));
   color: var(--background);
 }
 
