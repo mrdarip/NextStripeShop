@@ -1,9 +1,11 @@
 /* from https://www.realtimecolors.com/?colors=070b0f-fbfcfe-97bae2-80b6f3-3b96fe*/
 :root {
-  --text: #070b0f;
-  --background: #fbfcfe;
-  --primary: #97bae2;
-  --secondary: #80b6f3;
+  /* These variables will be dynamically modified by the PaletteTool */
+  --text: var(--palette-text, #070b0f);
+  --background: var(--palette-background, #fbfcfe);
+  --primary: var(--palette-primary, #97bae2);
+  --secondary: var(--palette-secondary, #80b6f3);
+  --accent: var(--palette-accent, #3b96fe);
 }
 
 *{

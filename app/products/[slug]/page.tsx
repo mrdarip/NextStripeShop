@@ -5,6 +5,7 @@ import ProductCard from '@/app/components/ProductCard';
 import s from './ProductPage.module.css';
 import type { Metadata, ResolvingMetadata } from 'next';
 import AddToCartButton from './AddToCartButton';
+import PaletteTool from '@/app/components/PaletteTool';
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -48,6 +49,7 @@ async function getProduct(slug: string) {
       price: (product.unit_amount ?? 0) / 100,
       currency: product.currency.toUpperCase(),
       image: productProduct.images.length > 0 ? productProduct.images[0] : '/images/placeholder.png',
+      palette: productProduct.metadata.palette || null,
     },
     relatedProducts
   };
@@ -74,6 +76,9 @@ export default async function ProductPage(props: any) {
 
   return (
     <div className={s["product-page"]}>
+      {/* Add the PaletteTool component to directly modify :root CSS variables */}
+      <PaletteTool palette={product.palette} />
+      
       <h1 className={s.title}>{product.name}</h1>
       <Image 
         src={product.image} 
