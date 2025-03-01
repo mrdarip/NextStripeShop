@@ -28,8 +28,8 @@
 }
 
 .product-card button {
-  background-color: #0070f3;
-  color: white;
+  background-color: var(--accent);
+  color: var(--background);
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
