@@ -16,7 +16,8 @@ export default function AddToCartButton({ product }: { product: Product }) {
         price: product.price,
         currency: product.currency,
         image: product.image,
-        quantity: 1
+        quantity: 1,
+        type: product.type,
       })}
     >
       Add to Cart
