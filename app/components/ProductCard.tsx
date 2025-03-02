@@ -40,7 +40,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           price: product.price,
           currency: product.currency,
           image: product.image,
-          quantity: 1
+          quantity: 1,
+          type: product.type,
         })}
       >
         Add to Cart

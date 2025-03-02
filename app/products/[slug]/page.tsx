@@ -6,6 +6,8 @@ import s from './ProductPage.module.css';
 import type { Metadata, ResolvingMetadata } from 'next';
 import AddToCartButton from './AddToCartButton';
 import PaletteTool from '@/app/components/PaletteTool';
+import Canvas from '@/app/components/Canvas';
+import { Product } from '@/app/types';
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -17,9 +19,7 @@ async function getProduct(slug: string) {
     const product = price.product as Stripe.Product;
     return product.metadata.slug === slug;
   });
-
   if (!product) return null;
-
   const productProduct = product.product as Stripe.Product;
   const relatedSlugs = productProduct.metadata.related?.split(',') || [];
   const relatedProducts = prices.data
@@ -37,9 +37,9 @@ async function getProduct(slug: string) {
         price: (price.unit_amount ?? 0) / 100,
         currency: price.currency.toUpperCase(),
         image: relatedProduct.images.length > 0 ? relatedProduct.images[0] : '/images/placeholder.png',
+        type: relatedProduct.metadata.type || 'default', // Add default type
       };
     });
-
   return {
     product: {
       id: product.id,
@@ -50,7 +50,8 @@ async function getProduct(slug: string) {
       currency: product.currency.toUpperCase(),
       image: productProduct.images.length > 0 ? productProduct.images[0] : '/images/placeholder.png',
       palette: productProduct.metadata.palette || null,
-    },
+      type: productProduct.metadata.type || 'default', // Use default if no type is specified
+    } as Product,
     relatedProducts
   };
 }
@@ -73,22 +74,45 @@ export default async function ProductPage(props: any) {
   if (!data) notFound();
   
   const { product, relatedProducts } = data;
-
+  
+  // Check if this is a drawing product
+  const isDrawingProduct = product.type === 'draw';
+  
   return (
     <div className={s["product-page"]}>
       {/* Add the PaletteTool component to directly modify :root CSS variables */}
-      <PaletteTool palette={product.palette} />
+      <PaletteTool palette={product.palette || null} />
       
       <h1 className={s.title}>{product.name}</h1>
-      <Image 
-        src={product.image} 
-        alt={product.name} 
-        width={200} 
-        height={200}
-        className={s.img}
-        style={{ objectFit: 'cover' }}
-      />
       
+      {isDrawingProduct ? (
+        /* If this is a drawing product, render the Canvas component */
+        <div className={s.drawingSection}>
+          <h2>Draw on the Canvas!</h2>
+          <Canvas />
+        </div>
+      ) : (
+        /* Otherwise render the regular product details */
+        <>
+          <Image 
+            src={product.image} 
+            alt={product.name} 
+            width={200} 
+            height={200}
+            className={s.img}
+            style={{ objectFit: 'cover' }}
+          />
+          
+          {product.description && (
+            <div className={s.description}>
+              <h2>Description</h2>
+              <p>{product.description}</p>
+            </div>
+          )}
+        </>
+      )}
+      
+      {/* Always show the ordering section */}
       <div className={s.ordering}>
         <p>
           {product.price} {product.currency}
@@ -96,20 +120,13 @@ export default async function ProductPage(props: any) {
         <AddToCartButton product={product} />
       </div>
       
-      {product.description && (
-        <div className={s.description}>
-          <h2>Description</h2>
-          <p>{product.description}</p>
-        </div>
-      )}
-      
       {relatedProducts.length > 0 && (
         <div className={s.recommendations}>
           <h2>Related Products</h2>
           <ul className='product-list'>
             {relatedProducts.map((relatedProduct) => (
               <li key={relatedProduct.id}>
-                <ProductCard product={relatedProduct} />
+                <ProductCard product={relatedProduct as Product} />
               </li>
             ))}
           </ul>
