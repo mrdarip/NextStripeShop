@@ -109,7 +109,7 @@ button {
   color: var(--background);
   box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 
-  color: white;
+  color: var(--background);
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -134,7 +134,7 @@ footer{
 }
 
 .cart-icon {
-  background: white;
+  background: var(--background);
   border-radius: 50%;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -143,8 +143,8 @@ footer{
   position: absolute;
   top: -10px;
   right: -10px;
-  background: red;
-  color: white;
+  background: var(--accent);
+  color: var(--background);
   border-radius: 50%;
   padding: 5px 10px;
   font-size: 12px;
