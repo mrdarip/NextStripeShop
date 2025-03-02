@@ -23,8 +23,8 @@ body {
 }
 
 #body > *{
-  padding-right: 10%;
-  padding-left: 10%;
+  padding-right: 5%;
+  padding-left: 5%;
 }
 
 #body{
@@ -50,8 +50,6 @@ body {
   }
 }
 
-
-
 h3 {
   margin: 0;
 }
@@ -70,6 +68,7 @@ header {
   gap: 1.5rem;
 
   padding: 2rem 0;
+  margin-bottom: 1em;
   
 
   background: var(--primary);
@@ -78,9 +77,9 @@ header {
 
 .product-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: stretch;
-  gap: 4rem;
+  gap: 1em;
   flex-wrap: wrap;
 }
 
@@ -129,6 +128,7 @@ footer{
   color: var(--background);
 
 
+  margin-top: 1em;
   padding: 1rem 0;
   width: 100%;
 }
