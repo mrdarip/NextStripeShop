@@ -36,7 +36,7 @@ export default async function Home() {
       <section className='products'>
         <h2>Products</h2>
         <ul className='product-list'>
-          {products.map((product) => (
+            {products.filter(prod => !prod.type || prod.type === "default").map((product) => (
             <li key={product.id}>
               <ProductCard product={product} />
             </li>
