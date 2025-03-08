@@ -3,6 +3,8 @@
   /* These variables will be dynamically modified by the PaletteTool */
   --text: var(--palette-text, #070b0f);
   --background: var(--palette-background, #fbfcfe);
+  --background1: var(--palette-background1, #d4def2);
+  --background2: var(--palette-background2, #c3cee6);
   --primary: var(--palette-primary, #97bae2);
   --secondary: var(--palette-secondary, #80b6f3);
   --accent: var(--palette-accent, #3b96fe);
@@ -33,10 +35,10 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  background-color: var(--background);
+  background-color: var(--background1);
   color: var(--text);
 
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, var(--primary) 32px, var(--primary) 64px);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, var(--background2) 32px, var(--background2) 64px);
   background-size: 90px 90px;
   animation: translateBG 6s linear infinite;
 }

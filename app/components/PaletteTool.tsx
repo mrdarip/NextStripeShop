@@ -4,28 +4,37 @@ export const PALETTES = {
   //palettes
   pizzaplace: {
     //white and red
-    '--palette-primary': '#cf3a3a',
-    '--palette-secondary': '#ea9090',
-    '--palette-accent': '#e85e5e',
-    '--palette-background': '#fbf4f4',
-    '--palette-text': '#1a0a0a'
+    //https://www.realtimecolors.com/?colors=1a0a0a-fbf4f4-cf3a3a-ea9090-e85e5e&fonts=Inter-Inter
+    'primary': '#cf3a3a',
+    'secondary':'#ea9090',
+    'accent': '#e85e5e',
+    'background': '#fbf4f4',
+    'background1': '#f1dada',
+    'background2': '#ebc7c7',
+    'text': '#1a0a0a'
   },
   "black-red-white": {
     //black red and white
-    '--palette-primary': '#df3831',
-    '--palette-secondary': '#ecd985',
-    '--palette-accent': '#d9e453',
-    '--palette-background': '#fefbfa',
-    '--palette-text': '#0f0202'
+    //https://www.realtimecolors.com/?colors=0f0202-fefbfa-df3831-ecd985-d9e453&fonts=Inter-Inter
+    'primary': '#df3831',
+    'secondary':'#ecd985',
+    'accent': '#d9e453',
+    'background': '#fefbfa',
+    'background1': '#f7ddd4',
+    'background2': '#f2ccbf',
+    'text': '#0f0202'
   },
   "clay": {
     //pastel brownish colors
     //beige and latte brown,
-    '--palette-primary': '#c87650',
-    '--palette-secondary': '#e4b19a',
-    '--palette-accent': '#d9825a',
-    '--palette-background': '#F7E6DE',
-    '--palette-text': '#120b07'
+    //https://www.realtimecolors.com/?colors=120b07-faf7f6-c87650-ebb291-d9825a&fonts=Inter-Inter
+    'primary': '#c87650',
+    'secondary':'#ebb291',
+    'accent': '#d9825a',
+    'background': '#faf7f6',
+    'background1': '#ede2de',
+    'background2': '#e4d3ce',
+    'text': '#120b07'
   }
   // Additional palettes
 };
@@ -58,7 +67,7 @@ export function getPaletteStyles(paletteToUse: string | null): string {
   let styleString = ':root {';
   
   Object.entries(selectedPalette).forEach(([property, value]) => {
-    styleString += `${property}: ${value}; `;
+    styleString += `--palette-${property}: ${value}; `;
   });
   
   styleString += '}';
