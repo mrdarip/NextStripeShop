@@ -5,7 +5,7 @@ import ProductCard from '@/app/components/ProductCard';
 import s from './ProductPage.module.css';
 import type { Metadata, ResolvingMetadata } from 'next';
 import AddToCartButton from './AddToCartButton';
-import PaletteTool from '@/app/components/PaletteTool';
+import ServerPalette from '@/app/components/ServerPalette';
 import Canvas from '@/app/components/Canvas';
 import { Product } from '@/app/types';
 
@@ -80,8 +80,8 @@ export default async function ProductPage(props: any) {
   
   return (
     <div className={s["product-page"]}>
-      {/* Add the PaletteTool component to directly modify :root CSS variables */}
-      <PaletteTool palette={product.palette || null} />
+      {/* Apply product-specific palette server-side */}
+      <ServerPalette palette={product.palette || null} />
       
       <h1 className={s.title}>{product.name}</h1>
       

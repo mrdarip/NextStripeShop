@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Inter } from 'next/font/google'
 import { CartProvider } from './context/cartContext'
 import Cart from './components/Cart'
+import ServerPalette from './components/ServerPalette'
 import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,8 +19,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // You can change the default palette here
+  const defaultPalette = null;
+
   return (
     <html lang="en">
+      <head>
+        <ServerPalette palette={defaultPalette} />
+      </head>
       <body className={inter.className}>
         <CartProvider>
           <div id="body">

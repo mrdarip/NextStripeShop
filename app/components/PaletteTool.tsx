@@ -1,34 +1,31 @@
-'use client';
-
-import { useEffect } from 'react';
-
+// Server-side palette utilities
 // Define palette configurations
-const PALETTES = {
+export const PALETTES = {
   //palettes
   pizzaplace: {
     //white and red
-    '--palette-primary': 'Red',
-    '--palette-secondary': 'White',
-    '--palette-accent': 'Black',
-    '--palette-background': 'White',
-    '--palette-text': 'Black',
+    '--palette-primary': '#cf3a3a',
+    '--palette-secondary': '#ea9090',
+    '--palette-accent': '#e85e5e',
+    '--palette-background': '#fbf4f4',
+    '--palette-text': '#1a0a0a'
   },
   "black-red-white": {
     //black red and white
-    '--palette-primary': 'Black',
-    '--palette-secondary': 'Black',
-    '--palette-accent': 'White',
-    '--palette-background': 'Red',
-    '--palette-text': 'White',
+    '--palette-primary': '#df3831',
+    '--palette-secondary': '#ecd985',
+    '--palette-accent': '#d9e453',
+    '--palette-background': '#fefbfa',
+    '--palette-text': '#0f0202'
   },
   "clay": {
     //pastel brownish colors
     //beige and latte brown,
-    '--palette-primary': 'Latte Brown',
-    '--palette-secondary': 'Beige',
-    '--palette-accent': '#3498db',
-    '--palette-background': '#f5f0f0',
-    '--palette-text': '#2c3e50', 
+    '--palette-primary': '#c87650',
+    '--palette-secondary': '#e4b19a',
+    '--palette-accent': '#d9825a',
+    '--palette-background': '#F7E6DE',
+    '--palette-text': '#120b07'
   }
   // Additional palettes
 };
@@ -46,49 +43,45 @@ Red	#FF0000
 Black	#000000
 White	#FFFFFF
 */
-export class PaletteToolClass {
-  /**
-   * Changes the palette by directly modifying CSS variables in :root
-   * @param paletteToSwitchTo - The name of the palette to apply or null to use default
-   */
-  static ChangePaletteTo(paletteToSwitchTo: string | null): void {
-    if (typeof document === 'undefined') return; // Guard for SSR
-    
-    // Get the root element
-    const rootElement = document.documentElement;
-    
-    // Reset to default palette by removing custom properties
-    rootElement.style.removeProperty('--palette-primary');
-    rootElement.style.removeProperty('--palette-secondary');
-    rootElement.style.removeProperty('--palette-accent');
-    rootElement.style.removeProperty('--palette-background');
-    rootElement.style.removeProperty('--palette-text');
-    
-    // If a specific palette is requested, apply it
-    if (paletteToSwitchTo && paletteToSwitchTo in PALETTES) {
-      // Apply the selected palette variables
-      const selectedPalette = PALETTES[paletteToSwitchTo as keyof typeof PALETTES];
-      Object.entries(selectedPalette).forEach(([property, value]) => {
-        rootElement.style.setProperty(property, value as string);
-      });
-    }
+
+/**
+ * Generate CSS variables string for a palette that can be used server-side
+ * @param paletteToUse - The name of the palette to use
+ * @returns CSS style string that can be used in a style tag
+ */
+export function getPaletteStyles(paletteToUse: string | null): string {
+  if (!paletteToUse || !(paletteToUse in PALETTES)) {
+    return ''; // Return empty string for default or invalid palettes
   }
+
+  const selectedPalette = PALETTES[paletteToUse as keyof typeof PALETTES];
+  let styleString = ':root {';
+  
+  Object.entries(selectedPalette).forEach(([property, value]) => {
+    styleString += `${property}: ${value}; `;
+  });
+  
+  styleString += '}';
+  return styleString;
 }
 
-interface PaletteToolProps {
-  palette: string | null;
+/**
+ * Generate inline style object for a palette (useful for dynamic styling in server components)
+ * @param paletteToUse - The name of the palette to use
+ * @returns Object with CSS variable key-value pairs
+ */
+export function getPaletteStyleObject(paletteToUse: string | null): Record<string, string> {
+  if (!paletteToUse || !(paletteToUse in PALETTES)) {
+    return {}; // Return empty object for default or invalid palettes
+  }
+
+  return PALETTES[paletteToUse as keyof typeof PALETTES];
 }
 
-export default function PaletteTool({ palette }: PaletteToolProps) {
-  useEffect(() => {
-    PaletteToolClass.ChangePaletteTo(palette);
-    
-    // Cleanup when component unmounts
-    return () => {
-      PaletteToolClass.ChangePaletteTo(null);
-    };
-  }, [palette]);
-
-  // This component doesn't render anything visible
-  return null;
+/**
+ * Get the names of all available palettes
+ * @returns Array of palette names
+ */
+export function getAvailablePalettes(): string[] {
+  return Object.keys(PALETTES);
 }
