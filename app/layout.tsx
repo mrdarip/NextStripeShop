@@ -10,8 +10,18 @@ import '../styles/globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'My Next.js Stripe App',
-  description: 'E-commerce application with Next.js and Stripe',
+  title: 'mkdarip',
+  description: 'Tienda de productos de mkdarip',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
+  alternates: {
+    languages: {
+      'es-ES': '/',
+    },
+  },
 }
 
 export default function RootLayout({
@@ -34,14 +44,14 @@ export default function RootLayout({
               <h1>
                 <a href="/">
                   <img src='/images/logo.png' alt='logo'/>
-                  My Next.js Stripe App
+                  mkdarip
                 </a>
               </h1>
               <Cart />
             </header>
             <main>{children}</main>
             <footer>
-              <p>&copy; 2023 My Next.js Stripe App</p>
+              <p>&copy; 2025 mkdarip </p>
             </footer>
           </div>
         </CartProvider>
