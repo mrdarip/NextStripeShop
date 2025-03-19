@@ -35,6 +35,15 @@ export const PALETTES = {
     'background1': '#ede2de',
     'background2': '#e4d3ce',
     'text': '#120b07'
+  },
+  "blue-bw":{
+    'primary': '#4f97b4',
+    'secondary':'#97cadf',
+    'accent': '#5eb9dd',
+    'background': '#f3f7f8',
+    'background1': '#dfe9ec',
+    'background2': '#cfdfe3',
+    'text': '#070809'
   }
   // Additional palettes
 };
