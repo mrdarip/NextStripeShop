@@ -43,6 +43,8 @@ export default async function Home() {
           ))}
         </ul>
       </section>
+      {products.filter(prod => prod.type == "draw").length > 0 && (
+
       <section className='products'>
         <h2>Create your own!</h2>
         <ul className='product-list'>
@@ -53,6 +55,7 @@ export default async function Home() {
           ))}
         </ul>
       </section>
+      )}
     </div>
   );
 }
