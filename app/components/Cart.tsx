@@ -18,9 +18,7 @@ export default function Cart() {
         🛒
         {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
       </div>
-      <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} cartContext={cartContext}>
-        
-      </CartModal>
+      <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} cartContext={cartContext} />
     </>
   );
 }

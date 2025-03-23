@@ -8,6 +8,10 @@
   --primary: var(--palette-primary, #97bae2);
   --secondary: var(--palette-secondary, #80b6f3);
   --accent: var(--palette-accent, #3b96fe);
+
+  --danger: var(--palette-danger, #ff4d4d);
+  --warning: var(--palette-warning, #ffda44);
+  --success: var(--palette-success, #68ca6b);
 }
 
 *{
@@ -119,6 +123,25 @@ button {
 
 button:hover {
   background-color: var(--secondary);
+}
+
+button.danger {
+  background-color: var(--danger);
+}
+button.danger:hover {
+  background-color: var(--warning);
+}
+button.success {
+  background-color: var(--success);
+}
+button.success:hover {
+  background-color: var(--primary);
+}
+button.warning {
+  background-color: var(--warning);
+}
+button.warning:hover {
+  background-color: var(--danger);
 }
 
 footer{

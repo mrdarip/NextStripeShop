@@ -68,9 +68,9 @@ export default function CartModal({ isOpen, onClose, cartContext }: CartModalPro
             </li>
           ))}
         </ul>
-        <div className='actions'>
-          <button onClick={clearCart}>Clear Cart</button>
-          <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
+        <div className={styles.cartActions}>
+          <button onClick={clearCart} className='danger'>Clear Cart</button>
+          <button onClick={handleCheckout} disabled={loading || cart.length === 0} className={styles.checkoutButton}>
             {loading ? 'Loading...' : 'Checkout'}
           </button>
         </div>
