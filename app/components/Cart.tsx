@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useCart } from '../context/cartContext';
-import Modal from '../components/Modal';
+import CartModal from '../components/Modal';
 import { loadStripe } from '@stripe/stripe-js';
 import { createCheckoutSession } from '../../lib/serverActions';
 
@@ -42,7 +42,7 @@ export default function Cart() {
         🛒
         {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
       </div>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2>Cart</h2>
         <ul>
           {cart.map((item) => (
@@ -57,13 +57,13 @@ export default function Cart() {
             </li>
           ))}
         </ul>
-        <div>
+        <div className='actions'>
           <button onClick={clearCart}>Clear Cart</button>
           <button onClick={handleCheckout} disabled={loading || cart.length === 0}>
             {loading ? 'Loading...' : 'Checkout'}
           </button>
         </div>
-      </Modal>
+      </CartModal>
     </>
   );
 }
