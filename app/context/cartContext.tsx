@@ -7,7 +7,7 @@ interface CartItem extends Omit<Product, 'description'> {
   quantity: number;
 }
 
-interface CartContextType {
+export interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
