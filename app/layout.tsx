@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'mkdarip',
-  description: 'Tienda de productos de mkdarip',
+  description: 'Productos personalizados!',
+  keywords: 'mkdarip, productos personalizados, regalos personalizados',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
@@ -36,6 +37,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <ServerPalette palette={defaultPalette} />
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSX24LF61Z"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-WSX24LF61Z');
+          `
+        }} />
       </head>
       <body className={inter.className}>
         <CartProvider>
