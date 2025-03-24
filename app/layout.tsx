@@ -44,7 +44,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-WSX24LF61Z');
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
           `
         }} />
       </head>
