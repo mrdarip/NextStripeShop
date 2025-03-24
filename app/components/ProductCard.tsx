@@ -26,7 +26,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3 className={styles['product-card h3']}>{product.name}</h3>
       </Link>
       {product.description && (
-        <p className={styles['product-card p']}>{product.description}</p>
+        <p className={`${styles['product-card p']} ${styles['product-description']}`}>
+          {product.description}
+        </p>
       )}
       <p className={styles['product-card p']}>
         {product.price} {product.currency}
