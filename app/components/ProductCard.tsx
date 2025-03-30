@@ -26,29 +26,29 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3 className={styles['product-card h3']}>{product.name}</h3>
         
         {product.description && (
-          <p className={`${styles['product-description']}`}>
+          <p className={`${styles['product-description']} ${styles['product-card p']}`}>
           {product.description}
         </p>
         )}
         <p className={styles['product-card p']}>
           {product.price} {product.currency}
         </p>
-        <button 
-          className={styles['product-card button']} 
-          onClick={() => addToCart({
-            id: product.id,
-            slug: product.slug,
-            name: product.name,
-            price: product.price,
-            currency: product.currency,
-            image: product.image,
-            quantity: 1,
-            type: product.type,
-          })}
-        >
-          Add to Cart
-        </button>
       </Link>
+      <button 
+        className={styles['product-card button']} 
+        onClick={() => addToCart({
+          id: product.id,
+          slug: product.slug,
+          name: product.name,
+          price: product.price,
+          currency: product.currency,
+          image: product.image,
+          quantity: 1,
+          type: product.type,
+        })}
+      >
+        Add to Cart
+      </button>
     </article>
   );
 }
