@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './Canvas.module.css';
 
-const PixelArtModule: React.FC = () => {
+const PixelArtCanvas: React.FC = () => {
     const [grid, setGrid] = useState<string[][]>(Array(16).fill(Array(16).fill('white')));
     const [selectedColor, setSelectedColor] = useState<string>('black');
 
@@ -43,4 +43,4 @@ const PixelArtModule: React.FC = () => {
     );
 };
 
-export default PixelArtModule;
+export default PixelArtCanvas;

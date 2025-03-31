@@ -43,18 +43,31 @@ export default async function Home() {
           ))}
         </ul>
       </section>
-      {products.filter(prod => prod.type == "draw").length > 0 && (
 
-      <section className='products'>
-        <h2>Create your own!</h2>
-        <ul className='product-list'>
-          {products.filter(prod => prod.type == "draw").map((product) => (
-            <li key={product.id}>
-              <ProductCard product={product} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {products.filter(prod => prod.type == "draw").length > 0 && (
+        <section className='products'>
+          <h2>Create your own!</h2>
+          <ul className='product-list'>
+            {products.filter(prod => prod.type == "draw").map((product) => (
+              <li key={product.id}>
+                <ProductCard product={product} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {products.filter(prod => prod.type == "pixel").length > 0 && (
+        <section className='products'>
+          <h2>Pixel Art Products</h2>
+          <ul className='product-list'>
+            {products.filter(prod => prod.type == "pixel").map((product) => (
+              <li key={product.id}>
+                <ProductCard product={product} />
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </div>
   );

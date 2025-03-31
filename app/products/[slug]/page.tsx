@@ -8,6 +8,7 @@ import AddToCartButton from './AddToCartButton';
 import ServerPalette from '@/app/components/ServerPalette';
 import Canvas from '@/app/components/Canvas';
 import { Product } from '@/app/types';
+import PixelArtCanvas from '@/app/components/PixelArtCanvas';
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -76,7 +77,6 @@ export default async function ProductPage(props: any) {
   const { product, relatedProducts } = data;
   
   // Check if this is a drawing product
-  const isDrawingProduct = product.type === 'draw';
   
   return (
     <div className={s["product-page"]}>
@@ -85,14 +85,20 @@ export default async function ProductPage(props: any) {
       
       <h1 className={s.title}>{product.name}</h1>
       
-      {isDrawingProduct ? (
+      {product.type === 'draw' ? (
         /* If this is a drawing product, render the Canvas component */
         <div className={s.drawingSection}>
           <h2>Draw on the Canvas!</h2>
           <Canvas />
         </div>
+      ) : product.type === 'pixel' ? (
+        /* Render the pixel art product details */
+
+        <div className={s.pixelArtSection}>
+          <h2>Pixel Art Product</h2>
+          <PixelArtCanvas />
+        </div>
       ) : (
-        /* Otherwise render the regular product details */
         <>
           <Image 
             src={product.image} 
