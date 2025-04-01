@@ -83,8 +83,9 @@ header {
 
 .product-list {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: stretch;
+  align-content: center;
   gap: 1em;
   flex-wrap: wrap;
 }
@@ -173,4 +174,16 @@ footer{
   border-radius: 50%;
   padding: 5px 10px;
   font-size: 12px;
+}
+
+html {
+  font-family: sans-serif;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+}
+
+li {
+  scroll-snap-align: center;
+  text-align: center;
 }
