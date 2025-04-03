@@ -79,6 +79,7 @@ header {
 
   background: var(--primary);
   color: var(--background);
+  z-index: 9999;
 }
 
 .product-list {
@@ -186,4 +187,9 @@ html {
 li {
   scroll-snap-align: center;
   text-align: center;
+  transition: transform 0.3s linear, padding 0.3s linear;
+}
+
+li.centered {
+  padding-left: 1em;
 }
