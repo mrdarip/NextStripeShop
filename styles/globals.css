@@ -76,9 +76,6 @@ header {
   padding: 2rem 0;
   margin-bottom: 1em;
   
-
-  background: var(--primary);
-  color: var(--background);
   z-index: 9999;
 }
 
@@ -104,6 +101,10 @@ a {
 
 h1 a {
   color: var(--background);
+  background-color: var(--primary);
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 }
 
 h1 img{
@@ -179,17 +180,15 @@ footer{
 
 html {
   font-family: sans-serif;
-  scroll-snap-type: mandatory;
-  scroll-snap-points-y: repeat(100vh);
   scroll-snap-type: y mandatory;
 }
 
 li {
   scroll-snap-align: center;
   text-align: center;
-  transition: transform 0.3s linear, padding 0.3s linear;
+  transition: transform 0.3s linear;
 }
 
 li.centered {
-  padding-left: 1em;
+  transform: scale(1.1);
 }
