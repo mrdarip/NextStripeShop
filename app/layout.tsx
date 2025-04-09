@@ -6,6 +6,7 @@ import { CartProvider } from './context/cartContext'
 import Cart from './components/Cart'
 import ServerPalette from './components/ServerPalette'
 import '../styles/globals.css'
+import { inDevEnvironment } from '@/lib/DevEnv';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,6 +39,8 @@ export default function RootLayout({
       <head>
         <ServerPalette palette={defaultPalette} />
         {/* Google Analytics */}
+      {inDevEnvironment ||(
+      <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></script>
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -47,6 +50,8 @@ export default function RootLayout({
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
           `
         }} />
+      </>
+      )}
       </head>
       <body className={inter.className}>
         <CartProvider>
