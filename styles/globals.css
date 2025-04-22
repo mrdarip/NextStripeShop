@@ -183,17 +183,30 @@ footer{
   font-size: 12px;
 }
 
-html {
-  font-family: sans-serif;
-  scroll-snap-type: y mandatory;
-}
-
 li {
-  scroll-snap-align: center;
-  text-align: center;
   transition: transform 0.3s linear;
+  text-align: center;
 }
 
-li.centered {
-  transform: scale(1.1);
+/* if device has touch screen */
+@media (any-pointer: coarse) {
+  li.centered {
+    transform: scale(1.1);
+  }
+
+
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  
+  li {
+    scroll-snap-align: center;
+  }
+}
+
+/* if device has no touch screen */
+@media (any-pointer: fine) {
+  li:hover {
+    transform: scale(1.1);
+  }
 }
