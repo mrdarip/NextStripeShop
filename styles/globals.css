@@ -65,7 +65,7 @@ h5 {
 }
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
   
   display: flex;
@@ -74,10 +74,8 @@ header {
   flex-wrap: wrap;
   gap: 1.5rem;
 
-  
-  height: 33.33vh;
-  padding: 2rem 0;
-  margin-bottom: 1em;
+  width: 100%;
+  padding: 3rem 0;
   
   z-index: 9999;
 }
@@ -89,6 +87,7 @@ header {
   align-content: center;
   gap: 1em;
   flex-wrap: wrap;
+  margin-top: 33.33vh;
 }
 
 ul.product-list {
@@ -162,6 +161,8 @@ footer{
   margin-top: 1rem;
   padding: 1rem 0;
   width: 100%;
+  position:static;
+  bottom: 0;
   height: 33.33vh;
 }
 
