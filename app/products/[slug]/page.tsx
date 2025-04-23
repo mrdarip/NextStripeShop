@@ -1,14 +1,14 @@
 import Stripe from 'stripe';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import ProductCard from '@/app/components/ProductCard';
+import ProductCard from '@/app/components/product-card/ProductCard';
 import s from './ProductPage.module.css';
 import type { Metadata, ResolvingMetadata } from 'next';
 import AddToCartButton from './AddToCartButton';
 import ServerPalette from '@/app/components/ServerPalette';
-import Canvas from '@/app/components/Canvas';
+import Canvas from '@/app/components/draw/Canvas';
 import { Product } from '@/app/types';
-import PixelArtCanvas from '@/app/components/PixelArtCanvas';
+import PixelArtCanvas from '@/app/components/draw/PixelArtCanvas';
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);

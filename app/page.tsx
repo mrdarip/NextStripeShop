@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import ProductList from './components/ProductList';
+import ProductList from './components/product-card/ProductList';
 
 async function getProducts() {//TODO: merge with getProduct(slug: string) in app/products/[slug]/page.tsx
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
