@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import ProductCard from './components/ProductCard';
+import ProductList from './components/product-card/ProductList';
 
 async function getProducts() {//TODO: merge with getProduct(slug: string) in app/products/[slug]/page.tsx
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -32,43 +32,8 @@ export default async function Home() {
   const products = await getProducts();
   
   return (
-    <div>
-      <section className='products'>
-        <h2>Products</h2>
-        <ul className='product-list'>
-            {products.filter(prod => !prod.type || prod.type === "default").map((product) => (
-            <li key={product.id}>
-              <ProductCard product={product} />
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {products.filter(prod => prod.type == "draw").length > 0 && (
-        <section className='products'>
-          <h2>Create your own!</h2>
-          <ul className='product-list'>
-            {products.filter(prod => prod.type == "draw").map((product) => (
-              <li key={product.id}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {products.filter(prod => prod.type == "pixel").length > 0 && (
-        <section className='products'>
-          <h2>Pixel Art Products</h2>
-          <ul className='product-list'>
-            {products.filter(prod => prod.type == "pixel").map((product) => (
-              <li key={product.id}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </div>
+    <section className='products'>
+      <ProductList products={products} />
+    </section>
   );
 }

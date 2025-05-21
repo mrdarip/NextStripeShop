@@ -65,35 +65,20 @@ h5 {
 }
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
   
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1.5rem;
 
-  padding: 2rem 0;
-  margin-bottom: 1em;
+  width: 100%;
+  padding: 3rem 0;
   
-
-  background: var(--primary);
-  color: var(--background);
+  z-index: 9999;
 }
-
-.product-list {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: stretch;
-  gap: 1em;
-  flex-wrap: wrap;
-}
-
-ul.product-list {
-  list-style-type: none;
-  padding: 0;
-}
-
 
 a {
   color: var(--secondary);
@@ -102,6 +87,10 @@ a {
 
 h1 a {
   color: var(--background);
+  background-color: var(--primary);
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 }
 
 h1 img{
@@ -153,9 +142,12 @@ footer{
   color: var(--background);
 
 
-  margin-top: 1em;
+  margin-top: 1rem;
   padding: 1rem 0;
   width: 100%;
+  position:static;
+  bottom: 0;
+  height: 33.33vh;
 }
 
 .cart-icon {
@@ -173,4 +165,32 @@ footer{
   border-radius: 50%;
   padding: 5px 10px;
   font-size: 12px;
+}
+
+li {
+  transition: transform 0.3s linear;
+  text-align: center;
+}
+
+/* if device has touch screen */
+@media (any-pointer: coarse) {
+  li.centered {
+    transform: scale(1.1);
+  }
+
+
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  
+  li {
+    scroll-snap-align: center;
+  }
+}
+
+/* if device has no touch screen */
+@media (any-pointer: fine) {
+  li:hover {
+    transform: scale(1.1);
+  }
 }

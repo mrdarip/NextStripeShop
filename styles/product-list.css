@@ -1,0 +1,20 @@
+.product-list {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  margin-top: 33.33vh;
+}
+
+ul.product-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.product-list li {
+    flex: 1 1 calc(50% - 0.5em); /* grow, shrink, basis */
+    min-width: 250px;         
+  }
+  
