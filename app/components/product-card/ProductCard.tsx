@@ -25,7 +25,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3>{product.name}</h3>
         
         {product.description && (
-          <p className={`${styles['product-description']}}`}>
+          <p className={styles['product-description']}>
           {product.description}
         </p>
         )}
