@@ -40,7 +40,7 @@ export default function ProductList({ products }: ProductListProps) {
         const itemCenter = rect.top + rect.height / 2;
         const distance = Math.abs(viewportCenter - itemCenter);
 
-        if (distance < closestItem.distance) {
+        if (distance < closestItem.distance + 0.001) {
           closestItem = { index, distance };
         }
       });
