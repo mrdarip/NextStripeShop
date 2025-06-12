@@ -7,6 +7,7 @@ import Cart from './components/Cart'
 import ServerPalette from './components/ServerPalette'
 import '../styles/globals.css'
 import { inDevEnvironment } from '@/lib/DevEnv';
+import Header from './components/Header/Header';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -56,15 +57,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
           <div id="body">
-            <header>
-              <h1>
-                <a href="/">
-                  <img src='/images/logo.png' alt='logo'/>
-                  mkdarip
-                </a>
-              </h1>
-              <Cart />
-            </header>
+            <Header />
             <main>{children}</main>
             <footer>
               <p>&copy; 2025 mkdarip </p>
