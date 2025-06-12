@@ -28,6 +28,12 @@ export const metadata: Metadata = {
   },
 }
 
+export function generateViewport({ }) {
+  return {
+    themeColor: "#97bae2"
+  }
+}
+
 export default function RootLayout({
   children,
 }: {
