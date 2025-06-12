@@ -100,21 +100,28 @@ export default async function ProductPage(props: any) {
       {/* Apply product-specific palette server-side */}
       <ServerPalette palette={product.palette || null} />
       
-      <h1 className={s.title}>{product.name}</h1>
+      
       
       {product.type === 'draw' ? (
         /* If this is a drawing product, render the Canvas component */
-        <div className={s.drawingSection}>
-          <h2>Draw on the Canvas!</h2>
-          <Canvas />
-        </div>
+        <>
+          <h1 className={s.title}>{product.name}</h1>
+
+          <div className={s.drawingSection}>
+            <h2>Draw on the Canvas!</h2>
+            <Canvas />
+          </div>
+        </>
       ) : product.type === 'pixel' ? (
         /* Render the pixel art product details */
+        <>
+          <h1 className={s.title}>{product.name}</h1>
 
-        <div className={s.pixelArtSection}>
-          <h2>Pixel Art Product</h2>
-          <PixelArtCanvas />
-        </div>
+          <div className={s.pixelArtSection}>
+            <h2>Pixel Art Product</h2>
+            <PixelArtCanvas />
+          </div>
+        </>
       ) : (
         <>
           <Image 
@@ -125,6 +132,10 @@ export default async function ProductPage(props: any) {
             className={s.img}
             style={{ objectFit: 'cover' }}
           />
+
+          <h1 className={s.title}>{product.name}</h1>
+          
+          {/* Show product details only if they exist */}
           
           {product.description && (
             <div className={s.description}>
