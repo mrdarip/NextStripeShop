@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import ProductList from './components/product-card/ProductList';
+import Banner from './components/banner/Banner';
 
 async function getProducts() {//TODO: merge with getProduct(slug: string) in app/products/[slug]/page.tsx
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -32,8 +33,14 @@ export default async function Home() {
   const products = await getProducts();
   
   return (
-    <section className='products'>
-      <ProductList products={products} />
-    </section>
+    <>
+      <section className='banner'>
+        <Banner />
+      </section>
+      <section className='products'>
+        <ProductList products={products} />
+      </section>
+    </>
   );
 }
+

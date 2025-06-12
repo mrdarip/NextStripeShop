@@ -5,11 +5,13 @@
   align-content: center;
   gap: 1em;
   flex-wrap: wrap;
+
+  padding-right: 15%;
+  padding-left: 15%;
 }
 
 ul.product-list {
   list-style-type: none;
-  padding: 0;
 }
 
 ul.product-list li {
