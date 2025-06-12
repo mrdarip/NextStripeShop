@@ -71,12 +71,14 @@ header {
 
   z-index: 9999;
 
-  transition: background-color 0.3s ease-in-out;
+  background: linear-gradient(to right, var(--primary) 0%, var(--primary)50%, transparent 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.3s ease-in-out;
 }
 
 header:hover {
-  background-color: var(--primary);
-
+  background-position: 0 0;
 }
 
 a {
