@@ -9,6 +9,9 @@ import ServerPalette from '@/app/components/ServerPalette';
 import Canvas from '@/app/components/draw/Canvas';
 import { Product } from '@/app/types';
 import PixelArtCanvas from '@/app/components/draw/PixelArtCanvas';
+import { getPaletteStyleObject } from '@/app/components/PaletteTool';
+
+
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -68,6 +71,20 @@ export async function generateMetadata(
     title: data.product.name,
     description: data.product.description || undefined,
   };
+}
+
+export async function generateViewport(props : any): Promise<{ themeColor: string }> {
+
+  const data = await getProduct(props.params.slug);
+  const product = data?.product.palette || "default" ;
+
+  const colors = getPaletteStyleObject(
+    product
+  );
+
+  return {
+    themeColor: colors?.primary || "#97bae2"
+  }
 }
 
 export default async function ProductPage(props: any) {
