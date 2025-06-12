@@ -2,7 +2,7 @@
 
 import ProductCard from './ProductCard';
 import { useEffect, useRef, useState } from 'react';
-import '@/styles/product-list.css';
+import './product-list.css';
 
 interface Product {
   id: string;
