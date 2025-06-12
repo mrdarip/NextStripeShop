@@ -28,7 +28,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#body > *{
+main{
   padding-right: 15%;
   padding-left: 15%;
 }
@@ -39,21 +39,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  background-color: var(--background1);
+  background-color: var(--background);
   color: var(--text);
-
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, var(--background2) 32px, var(--background2) 64px);
-  background-size: 90px 90px;
-  animation: translateBG 6s linear infinite;
-}
-
-@keyframes translateBG {
-  0% {
-    background-position: 0px 0%;
-  }
-  100% {
-    background-position: 90px 0%;
-  }
 }
 
 h3 {
@@ -65,9 +52,12 @@ h5 {
 }
 
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  
+
+  background-color: var(--primary);
+
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,7 +65,9 @@ header {
   gap: 1.5rem;
 
   width: 100%;
-  padding: 3rem 0;
+  padding: 1rem 4rem;
+
+  margin-bottom: 1rem;
   
   z-index: 9999;
 }
@@ -87,10 +79,6 @@ a {
 
 h1 a {
   color: var(--background);
-  background-color: var(--primary);
-  padding: 0.5em 1em;
-  border-radius: 20px;
-  box-shadow: 5px 5px 1px rgba(0,0,0,0.2);
 }
 
 h1 img{
@@ -147,7 +135,6 @@ footer{
   width: 100%;
   position:static;
   bottom: 0;
-  height: 33.33vh;
 }
 
 .cart-icon {
@@ -167,30 +154,5 @@ footer{
   font-size: 12px;
 }
 
-li {
-  transition: transform 0.3s linear;
-  text-align: center;
-}
-
-/* if device has touch screen */
-@media (any-pointer: coarse) {
-  li.centered {
-    transform: scale(1.1);
-  }
 
 
-  html {
-    scroll-snap-type: y mandatory;
-  }
-  
-  li {
-    scroll-snap-align: center;
-  }
-}
-
-/* if device has no touch screen */
-@media (any-pointer: fine) {
-  li:hover {
-    transform: scale(1.1);
-  }
-}
