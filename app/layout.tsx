@@ -8,6 +8,7 @@ import ServerPalette from './components/ServerPalette'
 import '../styles/globals.css'
 import { inDevEnvironment } from '@/lib/DevEnv';
 import Header from './components/Header/Header';
+import { useRef } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 

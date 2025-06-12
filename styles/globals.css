@@ -37,7 +37,6 @@ main {
 
 }
 
-
 #body{
   min-height: 100vh;
   display: flex;
@@ -56,43 +55,9 @@ h5 {
   margin: 0;
 }
 
-header {
-  position: fixed;
-  top: 0;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-
-  width: 100%;
-  padding: 1rem 4rem;
-
-  z-index: 9999;
-
-  background: linear-gradient(to right, var(--primary) 0%, var(--primary)50%, transparent 50%, transparent 100%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  transition: background-position 0.3s ease-in-out;
-}
-
-header:hover {
-  background-position: 0 0;
-}
-
 a {
   color: var(--secondary);
   text-decoration: none;
-}
-
-h1 a {
-  color: var(--background);
-}
-
-h1 img{
-  height: 1em;
-  margin-right: 0.5em;
 }
 
 button {
