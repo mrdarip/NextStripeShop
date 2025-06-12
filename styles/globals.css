@@ -57,11 +57,8 @@ h5 {
 }
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
-
-  background-color: var(--primary);
-
 
   display: flex;
   justify-content: space-between;
@@ -73,6 +70,13 @@ header {
   padding: 1rem 4rem;
 
   z-index: 9999;
+
+  transition: background-color 0.3s ease-in-out;
+}
+
+header:hover {
+  background-color: var(--primary);
+
 }
 
 a {
