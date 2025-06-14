@@ -105,8 +105,9 @@ export default async function ProductPage(props: any) {
       <Image 
         src={product.image} 
         alt={product.name} 
-        width={200} 
-        height={200}
+        width={1920} 
+        height={1080}
+        sizes="100vw"
         className={s.img}
         style={{ objectFit: 'cover' }}
       />
