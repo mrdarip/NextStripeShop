@@ -35,6 +35,10 @@ main {
 
   gap: 1rem;
 
+  background-color: var(--background);
+
+  min-height: 100vh;
+  padding-bottom: 1em;
 }
 
 #body{
@@ -103,8 +107,6 @@ footer{
   background-color: var(--primary);
   color: var(--background);
 
-
-  margin-top: 1rem;
   padding: 1rem 0;
   width: 100%;
   position:static;
