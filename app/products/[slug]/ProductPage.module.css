@@ -30,15 +30,14 @@
 }
 
 .description {
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .recommendations {
   margin-top: 3rem;
 }
 
-.recommendations h2 {
+.recommendations .divider {
   margin-bottom: 1rem;
 }
 

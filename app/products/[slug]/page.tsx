@@ -102,63 +102,51 @@ export default async function ProductPage(props: any) {
       {/* Apply product-specific palette server-side */}
       <ServerPalette palette={product.palette || null} />
       
-      
-      
+      <Image 
+        src={product.image} 
+        alt={product.name} 
+        width={200} 
+        height={200}
+        className={s.img}
+        style={{ objectFit: 'cover' }}
+      />
+
+      <h1 className={s.title}>{product.name}</h1>
+
       {product.type === 'draw' ? (
         /* If this is a drawing product, render the Canvas component */
-        <>
-          <h1 className={s.title}>{product.name}</h1>
-
-          <div className={s.drawingSection}>
-            <h2>Draw on the Canvas!</h2>
-            <Canvas />
-          </div>
-        </>
-      ) : product.type === 'pixel' ? (
+        <div className={s.drawingSection}>
+          <h2>Draw on the Canvas!</h2>
+          <Canvas />
+        </div>
+      ) : product.type === 'pixel' && (
         /* Render the pixel art product details */
-        <>
-          <h1 className={s.title}>{product.name}</h1>
-
-          <div className={s.pixelArtSection}>
-            <h2>Pixel Art Product</h2>
-            <PixelArtCanvas />
-          </div>
-        </>
-      ) : (
-        <>
-          <Image 
-            src={product.image} 
-            alt={product.name} 
-            width={200} 
-            height={200}
-            className={s.img}
-            style={{ objectFit: 'cover' }}
-          />
-
-          <h1 className={s.title}>{product.name}</h1>
-          
-          {/* Show product details only if they exist */}
-          
-          {product.description && (
-            <div className={s.description}>
-              <h2>Description</h2>
-              <p>{product.description}</p>
-            </div>
-          )}
-        </>
+        <div className={s.pixelArtSection}>
+          <h2>Pixel Art Product</h2>
+          <PixelArtCanvas />
+        </div>
       )}
-      
-      {/* Always show the ordering section */}
       <div className={s.ordering}>
         <p>
           {product.price} {product.currency}
         </p>
         <AddToCartButton product={product} />
       </div>
+
+      {product.description && (
+        <div className={s.description}>
+          <h2>Description</h2>
+          <p>{product.description}</p>
+        </div>
+      )}
+      
+
       
       {relatedProducts.length > 0 && (
         <div className={s.recommendations}>
           <h2>Related Products</h2>
+          <hr className={s.divider} />
+          
           <ul className='product-list'>
             {relatedProducts.map((relatedProduct) => (
               <li key={relatedProduct.id}>
