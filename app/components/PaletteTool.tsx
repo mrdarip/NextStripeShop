@@ -62,6 +62,16 @@ Black	#000000
 White	#FFFFFF
 */
 
+/*
+  'primary': '${primary}',
+  'secondary': '${secondary}',
+  'accent': '${accent}',
+  'background': '${bg}',
+  'background1': '${bg.hex.90}',
+  'background2': '${bg.hex.85}',
+  'text': '${text}'
+*/
+
 /**
  * Generate CSS variables string for a palette that can be used server-side
  * @param paletteToUse - The name of the palette to use
