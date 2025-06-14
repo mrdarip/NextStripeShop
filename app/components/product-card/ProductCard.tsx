@@ -15,22 +15,24 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className={styles['product-card']}>
-      <Link href={`/products/${product.slug}`}>
+      <Link href={`/products/${product.slug}`} className={styles['product-link']}>
         <Image 
           src={product.image} 
           alt={product.name} 
-          width={200}
-          height={200}
+          width={300}
+          height={300}
+          priority={false}
+          quality={85}
         />
         <h3>{product.name}</h3>
         
         {product.description && (
           <p className={styles['product-description']}>
-          {product.description}
-        </p>
+            {product.description}
+          </p>
         )}
-        <p>
-          {product.price} {product.currency}
+        <p className={styles['product-price']}>
+          {product.currency} {product.price.toFixed(2)}
         </p>
       </Link>
       <button 
