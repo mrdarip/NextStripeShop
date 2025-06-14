@@ -8,13 +8,14 @@ import { Product } from '@/app/types';
 
 interface ProductCardProps {
   product: Product;
+  centered: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, centered }: ProductCardProps) {
   const { addToCart } = useCart();
 
   return (
-    <div className={styles['product-card']}>
+    <div className={styles['product-card'] + (centered ? ' ' + styles.centered : '')}>
       <Link href={`/products/${product.slug}`} className={styles['product-link']}>
         <Image 
           src={product.image} 

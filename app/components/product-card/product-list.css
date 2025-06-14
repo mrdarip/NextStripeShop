@@ -53,8 +53,3 @@ ul.product-list li {
     flex: 1 1 calc(25% - 1.25em);
   }
 }
-
-ul.product-list li.centered {
-  transform: scale(1.02);
-}
-  

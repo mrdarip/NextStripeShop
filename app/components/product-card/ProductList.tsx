@@ -65,7 +65,7 @@ export default function ProductList({ products }: ProductListProps) {
           }}
           className={centeredIndex === index ? 'centered' : ''}
         >
-          <ProductCard product={product} />
+          <ProductCard product={product} centered={centeredIndex === index} />
         </li>
       ))}
     </ul>

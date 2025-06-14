@@ -151,7 +151,7 @@ export default async function ProductPage(props: any) {
           <ul className='product-list'>
             {relatedProducts.map((relatedProduct) => (
               <li key={relatedProduct.id}>
-                <ProductCard product={relatedProduct as Product} />
+                <ProductCard product={relatedProduct as Product} centered={false} />
               </li>
             ))}
           </ul>

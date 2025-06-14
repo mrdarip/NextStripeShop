@@ -20,6 +20,12 @@
   transform: translateY(-3px);
 }
 
+@media (pointer : coarse) {
+  .centered.product-card {
+    transform: scale(1.02);
+  }
+}
+
 .product-link {
   text-decoration: none;
   color: inherit;
@@ -40,6 +46,12 @@
 
 .product-card:hover img {
   transform: scale(1.03);
+}
+
+@media (pointer : coarse) {
+  .centered.product-card img {
+    transform: scale(1.03);
+  }
 }
 
 .product-card h3 {
