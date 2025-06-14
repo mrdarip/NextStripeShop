@@ -64,7 +64,8 @@ export async function generateMetadata(
   props: any,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const data = await getProduct(props.params.slug);
+  const params = await props.params;
+  const data = await getProduct(params.slug);
   if (!data) return { title: 'Product Not Found' };
   
   return {
@@ -74,8 +75,8 @@ export async function generateMetadata(
 }
 
 export async function generateViewport(props : any): Promise<{ themeColor: string }> {
-
-  const data = await getProduct(props.params.slug);
+  const params = await props.params;
+  const data = await getProduct(params.slug);
   const product = data?.product.palette || "default" ;
 
   const colors = getPaletteStyleObject(
@@ -88,7 +89,8 @@ export async function generateViewport(props : any): Promise<{ themeColor: strin
 }
 
 export default async function ProductPage(props: any) {
-  const data = await getProduct(props.params.slug);
+  const params = await props.params;
+  const data = await getProduct(params.slug);
   if (!data) notFound();
   
   const { product, relatedProducts } = data;
