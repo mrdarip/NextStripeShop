@@ -14,7 +14,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="cart-icon" onClick={() => setIsModalOpen(true)} style={{ fontSize: '24px', cursor: 'pointer', position: 'relative' }}>
+      <div className="cart-icon" onClick={() => setIsModalOpen(true)} style={{ cursor: 'pointer', position: 'relative' }}>
         🛒
         {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
       </div>

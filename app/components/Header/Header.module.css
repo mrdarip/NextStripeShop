@@ -31,6 +31,10 @@
   background-position: 0 0;
 }
 
+.header h1{
+  font-size: 1.5rem;
+}
+
 .header h1 a {
   color: var(--background);
 
