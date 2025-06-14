@@ -19,10 +19,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Image 
           src={product.image} 
           alt={product.name} 
-          width={300}
-          height={300}
+          width={250}
+          height={250}
           priority={false}
-          quality={85}
+          quality={80}
         />
         <h3>{product.name}</h3>
         
