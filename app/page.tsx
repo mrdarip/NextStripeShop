@@ -29,6 +29,8 @@ async function getProducts() {//TODO: merge with getProduct(slug: string) in app
   });
 }
 
+export const revalidate = 1800;
+
 export default async function Home() {
   const products = await getProducts();
   
