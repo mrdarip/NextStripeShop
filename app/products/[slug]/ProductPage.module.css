@@ -5,9 +5,15 @@
   margin-right: auto;
 }
 
+.product-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 .title {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .img {
@@ -23,10 +29,9 @@
 
 .ordering {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
-  margin-top: 1em;
-  margin-bottom: 1rem;
+  justify-content: space-between;
 }
 
 .description {
