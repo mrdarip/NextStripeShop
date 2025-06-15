@@ -137,7 +137,7 @@ export default async function ProductPage(props: any) {
       {product.description && (
         <div className={s.description}>
           <h2>Description</h2>
-          <p>{product.description}</p>
+          {product.description}
         </div>
       )}
       
