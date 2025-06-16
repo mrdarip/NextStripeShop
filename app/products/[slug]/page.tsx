@@ -11,6 +11,7 @@ import { Product } from "@/app/types";
 import PixelArtCanvas from "@/app/components/draw/PixelArtCanvas";
 import { getPaletteStyleObject } from "@/app/components/PaletteTool";
 import ProductList from "@/app/components/product-card/ProductList";
+import ProductCarrousel from "@/app/components/product-card/ProductCarrousel";
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -123,7 +124,6 @@ export default async function ProductPage(props: any) {
           {product.price} {product.currency}
         </p>
       </div>
-      
 
       {product.type === "draw" ? (
         /* If this is a drawing product, render the Canvas component */
@@ -155,7 +155,9 @@ export default async function ProductPage(props: any) {
           <h2>Related Products</h2>
           <hr className={s.divider} />
 
-          <ProductList products={relatedProducts} />
+          <ProductCarrousel
+            products={relatedProducts}
+          />
         </div>
       )}
     </div>
