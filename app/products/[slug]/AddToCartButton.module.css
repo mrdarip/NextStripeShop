@@ -1,0 +1,10 @@
+.button{
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.2s ease;
+}
+
+.button.isAdding {
+    opacity: 0.8;
+    transform: scale(0.98);
+}

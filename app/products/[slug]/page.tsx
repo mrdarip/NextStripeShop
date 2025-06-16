@@ -140,7 +140,7 @@ export default async function ProductPage(props: any) {
         )
       )}
 
-      <AddToCartButton product={product} className={s.addToCartButton} />
+      <AddToCartButton product={product} />
 
       {product.description && (
         <div className={s.description}>

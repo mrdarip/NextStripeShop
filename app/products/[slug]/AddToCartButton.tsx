@@ -3,6 +3,7 @@
 import { useCart } from '@/app/context/cartContext';
 import { Product } from '@/app/types';
 import { useState } from 'react';
+import styles from './AddToCartButton.module.css';
 
 export default function AddToCartButton({ product }: { product: Product }) {
   const { addToCart } = useCart();
@@ -33,11 +34,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
       type="button" 
       onClick={handleAddToCart}
       disabled={isAdding}
-      style={{ 
-        opacity: isAdding ? 0.8 : 1,
-        transform: isAdding ? 'scale(0.98)' : 'scale(1)',
-        transition: 'all 0.2s ease'
-      }}
+      className={`${styles.button} ${isAdding ? styles.isAdding : ''}`}
     >
       {isAdding ? 'Añadido!' : 'Añadir al carrito'}
     </button>
