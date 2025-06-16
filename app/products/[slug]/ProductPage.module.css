@@ -30,8 +30,9 @@
 .ordering {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .description {
