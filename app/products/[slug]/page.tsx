@@ -10,6 +10,7 @@ import Canvas from "@/app/components/draw/Canvas";
 import { Product } from "@/app/types";
 import PixelArtCanvas from "@/app/components/draw/PixelArtCanvas";
 import { getPaletteStyleObject } from "@/app/components/PaletteTool";
+import ProductList from "@/app/components/product-card/ProductList";
 
 async function getProduct(slug: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -154,16 +155,7 @@ export default async function ProductPage(props: any) {
           <h2>Related Products</h2>
           <hr className={s.divider} />
 
-          <ul className="product-list">
-            {relatedProducts.map((relatedProduct) => (
-              <li key={relatedProduct.id}>
-                <ProductCard
-                  product={relatedProduct as Product}
-                  centered={false}
-                />
-              </li>
-            ))}
-          </ul>
+          <ProductList products={relatedProducts} />
         </div>
       )}
     </div>

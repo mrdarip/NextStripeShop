@@ -8,16 +8,11 @@
   padding-right: 15%;
   padding-left: 15%;
   max-width: 1400px;
-  margin: 2em auto;
-  justify-content: space-evenly
-}
+  justify-content: space-evenly;
 
-.product-list {
   list-style-type: none;
-  padding: 0;
   margin: 0;
 }
-
 
 @media (min-width: 768px) {
   .product-list {
@@ -32,7 +27,6 @@
     padding-left: 10%;
   }
 }
-
 
 ul.product-list li {
   flex: 1 1 calc(50% - 0.75em); /* grow, shrink, basis */
