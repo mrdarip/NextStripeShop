@@ -28,9 +28,7 @@ export default function ProductCard({ product, centered }: ProductCardProps) {
         <h3>{product.name}</h3>
         
         {product.description && (
-          <p className={styles['product-description']}>
-            {product.description}
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: product.description }} className={styles['product-description']} />
         )}
         <p className={styles['product-price']}>
           {product.currency} {product.price.toFixed(2)}
