@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import styles from './CartModal.module.css';
 import { createCheckoutSession } from '../../lib/serverActions';
 import { loadStripe } from '@stripe/stripe-js';
@@ -46,6 +47,9 @@ export default function CartModal({ isOpen, onClose, cartContext }: CartModalPro
   }, []);
 
   if (!isOpen || !mounted) return null;
+  
+  // Calculate total items in cart
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
   return createPortal(
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -54,24 +58,54 @@ export default function CartModal({ isOpen, onClose, cartContext }: CartModalPro
           &times;
         </button>
         
-        <h2>Cart</h2>
-        <ul>
-          {cart.map((item) => (
-            <li key={item.id}>
-              <article>
-                <h3>{item.name}</h3>
-                <p>
-                  {item.price} {item.currency} x {item.quantity}
-                </p>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <h2>Your Cart {totalItems > 0 && `(${totalItems} items)`}</h2>
+        
+        {cart.length === 0 ? (
+          <div className={styles.cartEmpty}>
+            Your cart is empty
+          </div>
+        ) : (
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id} className={styles.cartItem}>
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={60}
+                  height={60}
+                  className={styles.cartItemImage}
+                />
+                <div className={styles.cartItemInfo}>
+                  <h3>{item.name}</h3>
+                  <p>
+                    {item.price} {item.currency} × {item.quantity}
+                  </p>
+                </div>
+                <button 
+                  onClick={() => removeFromCart(item.id)}
+                  className={styles.cartItemRemove}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        
         <div className={styles.cartActions}>
-          <button onClick={clearCart} className='danger'>Clear Cart</button>
-          <button onClick={handleCheckout} disabled={loading || cart.length === 0} className={styles.checkoutButton}>
-            {loading ? 'Loading...' : 'Checkout'}
+          <button 
+            onClick={clearCart} 
+            className={styles.clearButton} 
+            disabled={cart.length === 0}
+          >
+            Clear Cart
+          </button>
+          <button 
+            onClick={handleCheckout} 
+            disabled={loading || cart.length === 0} 
+            className={styles.checkoutButton}
+          >
+            {loading ? 'Processing...' : 'Checkout'}
           </button>
         </div>
       </div>
