@@ -8,24 +8,24 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.footerContent}>
           <div className={styles.footerSection}>
-            <h4>Quick Links</h4>
+            <h4>Enlaces Rápidos</h4>
             <ul>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/returns">Returns Policy</Link></li>
+              <li><Link href="/">Inicio</Link></li>
+              <li><Link href="/about">Sobre Nosotros</Link></li>
+              <li><Link href="/returns">Política de Devoluciones</Link></li>
             </ul>
           </div>
           
           <div className={styles.footerSection}>
-            <h4>Customer Service</h4>
+            <h4>Servicio al Cliente</h4>
             <ul>
-              <li><Link href="/contact">Contact Us</Link></li>
-              <li><Link href="/returns">Returns & Exchange</Link></li>
+              <li><Link href="/contact">Contáctanos</Link></li>
+              <li><Link href="/returns">Cambios y Devoluciones</Link></li>
             </ul>
           </div>
           
           <div className={styles.footerSection}>
-            <h4>We Accept</h4>
+            <h4>Pagos Aceptados</h4>
             <div className={styles.paymentMethods}>
               <Image 
                 src="/images/payment-logos/visa.png" 
