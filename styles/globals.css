@@ -99,20 +99,6 @@ button.warning:hover {
   background-color: var(--danger);
 }
 
-footer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: var(--primary);
-  color: var(--background);
-
-  padding: 1rem 0;
-  width: 100%;
-  position:static;
-  bottom: 0;
-}
-
 .cart-icon {
   background: var(--background);
   border-radius: 50%;
