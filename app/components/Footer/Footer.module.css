@@ -11,6 +11,9 @@
   position:static;
   bottom: 0;
 }
+.footer *{
+  text-shadow: 0 0 1px color-mix(in srgb, var(--text), transparent 90%);
+}
 
 .container {
   max-width: 1200px;
