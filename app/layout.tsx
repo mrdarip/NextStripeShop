@@ -8,6 +8,7 @@ import ServerPalette from './components/ServerPalette'
 import '../styles/globals.css'
 import { inDevEnvironment } from '@/lib/DevEnv';
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import { useRef } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -66,9 +67,7 @@ export default function RootLayout({
           <div id="body">
             <Header />
             <main>{children}</main>
-            <footer>
-              <p>&copy; 2025 mkdarip </p>
-            </footer>
+            <Footer />
           </div>
         </CartProvider>
         <SpeedInsights />
